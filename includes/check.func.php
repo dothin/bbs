@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-04 22:37:17
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 19:04:58
+ * @Last Modified time: 2015-12-18 00:23:40
  */
 //防止恶意调用
 if (!defined('IN_TG')) {
@@ -38,6 +38,7 @@ function check_uniqid($uniqid,$session_uniqid){
  * @return [string]      [过滤后的字符串]
  */
 function check_username($str,$min,$max){
+    global $system;
     //trim
     $str = trim($str);
     //限制长度
@@ -50,9 +51,7 @@ function check_username($str,$min,$max){
         alert('用户名不得包含敏感字符');
     }
     //限制敏感用户名
-    $spm[0]= '高华斌';
-    $spm[1]= '姜文宇';
-    $spm[2]= '张超';
+    $spm = explode('|', $system['string']);
     foreach ($spm as $value) {
         @$spms .=$value.'、';
     }

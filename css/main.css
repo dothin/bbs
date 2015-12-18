@@ -2,7 +2,7 @@
 * @Author: gaohuabin
 * @Date:   2015-12-03 12:48:12
 * @Last Modified by:   gaohuabin
-* @Last Modified time: 2015-12-14 20:19:53
+* @Last Modified time: 2015-12-17 12:42:23
 */
 /*header*/
 .header{background: #ddd;}
@@ -14,7 +14,7 @@
 .content section{ background:#eee;}
 
 /*index*/
-.list li{height:40px; line-height: 40px; border-bottom:1px dashed #ddd;}
+.list li{height:40px; line-height: 40px; border-bottom:1px dashed #ddd; overflow: hidden;}
 .list li:hover{background:#ccc;}
 .list li em{float: right;}
 /*register*/

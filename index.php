@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-03 12:46:14
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-16 12:59:54
+ * @Last Modified time: 2015-12-17 23:09:37
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -14,9 +14,9 @@ require dirname(__FILE__).'/includes/common.inc.php';
 $html = html(get_xml('new.xml'));
 
 //分页模块
-global $page_size,$page_num;
+global $page_size,$page_num,$system;
 //第一个参数：根据什么字段查询数据，第二个参数：设置每页显示多少条数据
-pager_param("SELECT bbs_id FROM bbs_article WHERE bbs_reid=0",10);
+pager_param("SELECT bbs_id FROM bbs_article WHERE bbs_reid=0",$system['article_num']);
 //从数据库提取数据
 //每次while循环的数据是读取的结果集，并不是去重新查询数据库
 $result = query("SELECT bbs_id,bbs_title,bbs_type,bbs_readcount,bbs_commentcount FROM bbs_article WHERE bbs_reid=0 ORDER BY bbs_date DESC LIMIt $page_num,$page_size");
@@ -94,12 +94,10 @@ $result = query("SELECT bbs_id,bbs_title,bbs_type,bbs_readcount,bbs_commentcount
                         <textarea name="content" id="" cols="30" rows="10" maxlength="200"></textarea>
                     </div>
                 </div>
-                <div class="form-groups">
+                <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
                     <label class="form-labels" for="" >验证码：</label>
-                    <div class="controls" >
-                        <input type="text" name="code" class="code"  >
-                        <img src="code.php" id="code">
-                        <a id="refreshCode" style="display:inline-block" href="javascript:" title="看不清">看不清？</a>
+                    <div class="controls">
+                        <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                     </div>
                 </div>
                 <div class="form-groups">

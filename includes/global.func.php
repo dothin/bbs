@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-03 22:35:02
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:53:30
+ * @Last Modified time: 2015-12-18 12:33:17
  */
 /**
  * [admin_login 管理员登录权限]
@@ -120,9 +120,9 @@ function uniqid_check($mysql_uniqid,$cookie_uniqid){
  */
 function set_xml($xmlfile,$clean){
     $fp = @fopen($xmlfile, 'w');
-    if (!$fp) {
+    /*if (!$fp) {
         exit('系统错误，文件不存在');
-    }
+    }*/
 
     flock($fp, LOCK_EX);
     $string = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";

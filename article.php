@@ -3,22 +3,25 @@
  * @Author: gaohuabin
  * @Date:   2015-12-14 21:11:03
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:28:32
+ * @Last Modified time: 2015-12-18 00:12:07
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
 session_start();
 //引入公共文件,转换成硬路径，速度更快
 require dirname(__FILE__).'/includes/common.inc.php';
+global $system;
 //处理回帖
 if (@$_GET['action']=='repost') {
     //为防止恶意注册，跨站攻击
-    check_code($_POST['code'],$_SESSION['code']);
+    if ($system['code']==1) {
+        check_code($_POST['code'],$_SESSION['code']);
+     }
     if (!!$rows=fetch_array("SELECT bbs_uniqid,bbs_repost_time FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}' LIMIt 1")) {
         //为了防止cookie伪造，要比对一下唯一标识符uniqid
         uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
         //限制回帖时间
-        limit_time('回帖',time(),$rows['bbs_repost_time'],30);
+        limit_time('回帖',time(),$rows['bbs_repost_time'],$system['repost_time']);
         //引入验证文件
         include ROOT_PATH.'includes/check.func.php';
         
@@ -116,7 +119,7 @@ if (isset($_GET['id'])) {
                 $html['last_modify_date_string'] = '本帖于'.$html['last_modify_date'].'由'.$html['username_subject'].'最后修改过！';
             }
             //回复楼主
-            if ($_COOKIE['username']) {
+            if (@$_COOKIE['username']) {
                 $html['re']='<a href="javascript:;" name="re" title="回复楼主'.$html['username_subject'].'">[回复]</a>';
             }
             //个性签名
@@ -164,6 +167,7 @@ if (isset($_GET['id'])) {
                 <figure>
                     <img src="<?php echo $html['photo']; ?>" alt="<?php echo $html['username_subject']; ?>">
                     <figcaption>
+                        <h3 class="hide"><?php echo $html['username_subject']; ?></h3>
                         <h3><?php echo $html['username_subject']; ?>[楼主]</h3>
                         <em><?php echo $html['sex']; ?></em>
                         <ul>
@@ -182,7 +186,7 @@ if (isset($_GET['id'])) {
             <section>
                 <header>
                     <span class="fr"><?php echo @$html['subject_modify']; ?>1#</span><?php echo $html['username_subject']; ?>|发表于：<?php echo $html['date']; ?>
-                    <?php echo $html['re']; ?>
+                    <?php echo @$html['re']; ?>
                 </header>
                 <section>
                     <h3><?php echo $html['title']; ?></h3>
@@ -251,7 +255,9 @@ if (isset($_GET['id'])) {
                         <figure>
                             <img src="<?php echo $html['photo']; ?>" alt="">
                             <figcaption>
-                                <h3><?php echo $html['username_html']; ?></h3>
+                                    <h3 class="hide"><?php echo $html['username']; ?></h3>
+                                    <h3><?php echo $html['username_html']; ?></h3>
+                                
                                 <em><?php echo $html['sex']; ?></em>
                                 <ul>
                                     <li><a href="javascript:;" name="message" title="<?php echo $html['userid']; ?>">发私信</a></li>
@@ -342,12 +348,10 @@ if (isset($_GET['id'])) {
                             <textarea name="content" cols="46" rows="10"></textarea>
                         </div>
                     </div>
-                    <div class="form-groups">
+                    <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
                         <label class="form-labels" for="" >验证码：</label>
-                        <div class="controls" >
-                            <input type="text" name="code" class="code"  >
-                            <img src="code.php" id="code">
-                            <a id="refreshCode" style="display:inline-block" href="javascript:" title="看不清">看不清？</a>
+                        <div class="controls">
+                            <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                         </div>
                     </div>
                     <div class="form-groups">
@@ -368,12 +372,10 @@ if (isset($_GET['id'])) {
                     <textarea name="content" id="" cols="30" rows="10" maxlength="200"></textarea>
                 </div>
             </div>
-            <div class="form-groups">
+            <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
                 <label class="form-labels" for="" >验证码：</label>
-                <div class="controls" >
-                    <input type="text" name="code" class="code"  >
-                    <img src="code.php" id="code">
-                    <a id="refreshCode" style="display:inline-block" href="javascript:;" title="看不清">看不清？</a>
+                <div class="controls">
+                    <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                 </div>
             </div>
             <div class="form-groups">

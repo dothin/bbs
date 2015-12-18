@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-04 15:50:16
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:29:39
+ * @Last Modified time: 2015-12-18 00:17:30
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -12,9 +12,12 @@ session_start();
 require dirname(__FILE__).'/includes/common.inc.php';
 //判断登录状态
 login_state();
-
+global $system;
 //判断是否提交数据
 if (@$_GET['action'] == 'register') {
+    if ($system['register'] == 0) {
+        exit('管理员关闭了注册功能,请不要非法注册');
+    }
     //为防止恶意注册，跨站攻击
     check_code($_POST['code'],$_SESSION['code']);
     //引入验证文件
@@ -115,7 +118,7 @@ $_SESSION['uniqid'] = $uniqid = sha1_uniqid();
     ?>
 
     <div class="container mt10 ddd register">
-        <form class="form-horizontal" method="post" name="register" action="register.php?action=register">
+        <form class="form-horizontal" method="post" data-reg="<?php echo $system['register'];?>" name="register" action="register.php?action=register">
         <input type="hidden" name="uniqid" value="<?php echo $uniqid;?>" >
             <div class="form-groups">
                 <label class="form-labels" for="" >用户名：</label>

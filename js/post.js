@@ -2,7 +2,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-13 23:02:03
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 18:12:33
+ * @Last Modified time: 2015-12-17 23:41:30
  */
 (function() {
     var oRefreshCode = document.getElementById('refreshCode'),
@@ -17,7 +17,9 @@
         oSelectEmoji = oEmoji.getElementsByTagName('a'),
         oClose = document.getElementById('close'),
         aImg = oEmojis.getElementsByTagName('img'),
-        len = aImg.length;
+        len = aImg.length,
+        aCodeGroups = document.querySelectorAll(".code-groups"),
+        bCode=true;
     //表情
     for (var i = 0; i < oSelectEmoji.length; i++) {
         (function(a) {
@@ -38,6 +40,12 @@
     oClose.onclick = function() {
         oEmojis.style.display = 'none';
     }
+    for (var i = 0; i < aCodeGroups.length; i++) {
+        if (aCodeGroups[i].dataset.code == 0) {
+            aCodeGroups[i].style.display = 'none';
+            bCode=false;
+        };
+    };
     //刷新验证码
     oRefreshCode.onclick = oCode.onclick = function() {
         oCode.src = 'code.php?t=' + Math.random();
@@ -56,7 +64,7 @@
             oForm.content.focus();
             return false;
         };
-        if (oForm.code.value.length != 4) {
+        if (bCode&&oForm.code.value.length != 4) {
             alert('验证码必须4位');
             oForm.code.value = '';
             oForm.code.focus();

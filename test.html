@@ -4,72 +4,14 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <form class="form-horizontal" method="post" name="register" action="">
-            <div class="form-groups">
-                <label class="form-labels" for="" >用户名：</label>
-                <div class="controls">
-                    <input type="text" name="username" class="text" > (*必填，至少两位)
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >密码：</label>
-                <div class="controls">
-                    <input type="password" name="password" class="text" > (*必填，至少六位)
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >确认密码：</label>
-                <div class="controls">
-                    <input type="password" name="notpassword" class="text" > (*必填，同上)
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >密码提示：</label>
-                <div class="controls">
-                    <input type="text" name="question" class="text" > (*必填，至少两位)
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >密码回答：</label>
-                <div class="controls">
-                    <input type="text" name="answer" class="text" > (*必填，至少两位)
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >性别：</label>
-                <div class="controls">
-                    <input type="radio" name="sex" value="男" checked="checked" >男 <input type="radio" name="sex" value="女" >女
-                </div>
-            </div>
-            <div class="form-groups">
-                <input type="hidden" name="face" value="face/m01.gif" >
-                <img src="face/m01.gif" alt="头像选择" id="faceimg" >
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >电子邮件：</label>
-                <div class="controls">
-                    <input type="text" name="email" class="text" > (*必填，激活账户)
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >QQ：</label>
-                <div class="controls">
-                    <input type="text" name="qq" class="text" >
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >主页地址：</label>
-                <div class="controls">
-                    <input type="text" name="url" class="text" value="http://" >
-                </div>
-            </div>
-            <div class="form-groups">
-                <label class="form-labels" for="" >验证码：</label>
-                <div class="controls">
-                    <input type="text" name="code" class="text yzm"  > <img src="code.php" id="code">
-                </div>
-            </div>
-            <div class="form-groups"><input type="submit" class="submit" value="注册" ></div>
-        </form>
+        <input type="text" name="" onkeyup="up(this);" value="">
+        <script>
+                function up(that){
+                    var re=/[<>]/g;
+                    if (that.value != "") {
+                        that.value=that.value.replace(re, '');
+                    };
+                }
+        </script>
     </body>
 </html>

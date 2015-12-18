@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-13 22:43:53
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:29:32
+ * @Last Modified time: 2015-12-17 23:10:54
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -14,15 +14,19 @@ require dirname(__FILE__).'/includes/common.inc.php';
 if (!isset($_COOKIE['username'])) {
     location('请先登录','login.php');
 }
+global $system;
 //将帖子写入数据库
 if (@$_GET['action'] == 'post') {
     //为防止恶意注册，跨站攻击
-    check_code($_POST['code'],$_SESSION['code']);
+    if ($system['code']==1) {
+        check_code($_POST['code'],$_SESSION['code']);
+     }
     if (!!$rows=fetch_array("SELECT bbs_uniqid,bbs_post_time FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}' LIMIt 1")) {
         //为了防止cookie伪造，要比对一下唯一标识符uniqid
         uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
         //限制发帖时间
-        limit_time('发帖',time(),$rows['bbs_post_time'],60);
+        global $system;
+        limit_time('发帖',time(),$rows['bbs_post_time'],$system['post_time']);
         //引入验证文件
         include ROOT_PATH.'includes/check.func.php';
         
@@ -124,12 +128,10 @@ if (@$_GET['action'] == 'post') {
                     <textarea name="content" cols="46" rows="10"></textarea>
                 </div>
             </div>
-            <div class="form-groups">
+            <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
                 <label class="form-labels" for="" >验证码：</label>
-                <div class="controls" >
-                    <input type="text" name="code" class="code"  >
-                    <img src="code.php" id="code">
-                    <a id="refreshCode" style="display:inline-block" href="javascript:" title="看不清">看不清？</a>
+                <div class="controls">
+                    <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                 </div>
             </div>
             <div class="form-groups">

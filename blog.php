@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-06 16:54:05
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:31:08
+ * @Last Modified time: 2015-12-17 23:40:32
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -15,15 +15,17 @@ if (!isset($_COOKIE['username'])) {
     location('请先登录再进行本操作！','login.php');
 }
 //分页模块
-global $page_size,$page_num;
+global $page_size,$page_num,$system;
 //第一个参数：根据什么字段查询数据，第二个参数：设置每页显示多少条数据
-pager_param("SELECT bbs_id FROM bbs_users",8);
+pager_param("SELECT bbs_id FROM bbs_users",$system['blog_num']);
 //从数据库提取数据
 //每次while循环的数据是读取的结果集，并不是去重新查询数据库
 $result = query("SELECT bbs_id,bbs_username,bbs_sex,bbs_photo FROM bbs_users ORDER BY bbs_reg_time DESC LIMIt $page_num,$page_size");
 //发私信
 if (@$_GET['action'] == 'message') {
-    check_code($_POST['code'],$_SESSION['code']);
+    if ($system['code']==1) {
+        check_code($_POST['code'],$_SESSION['code']);
+     }
     if (!!$rows=fetch_array("SELECT bbs_uniqid FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}' LIMIt 1")) {
         //为了防止cookie伪造，要比对一下唯一标识符uniqid
         uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
@@ -67,7 +69,9 @@ if (@$_GET['action'] == 'message') {
 }
 //加好友
 if (@$_GET['action'] == 'friend') {
-    check_code($_POST['code'],$_SESSION['code']);
+    if ($system['code']==1) {
+        check_code($_POST['code'],$_SESSION['code']);
+     }
     if (!!$rows=fetch_array("SELECT bbs_uniqid FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}' LIMIt 1")) {
         //为了防止cookie伪造，要比对一下唯一标识符uniqid
         uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
@@ -120,7 +124,9 @@ if (@$_GET['action'] == 'friend') {
 }
 //送鲜花
 if (@$_GET['action'] == 'flower') {
-    check_code($_POST['code'],$_SESSION['code']);
+    if ($system['code']==1) {
+        check_code($_POST['code'],$_SESSION['code']);
+     }
     if (!!$rows=fetch_array("SELECT bbs_uniqid FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}' LIMIt 1")) {
         //为了防止cookie伪造，要比对一下唯一标识符uniqid
         uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
@@ -222,12 +228,10 @@ if (@$_GET['action'] == 'flower') {
                         <textarea name="content" id="" cols="30" rows="10" maxlength="200"></textarea>
                     </div>
                 </div>
-                <div class="form-groups">
+                <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
                     <label class="form-labels" for="" >验证码：</label>
-                    <div class="controls" >
-                        <input type="text" name="code" class="code"  >
-                        <img src="code.php" id="code">
-                        <a id="refreshCode" style="display:inline-block" href="javascript:" title="看不清">看不清？</a>
+                    <div class="controls">
+                        <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                     </div>
                 </div>
                 <div class="form-groups">

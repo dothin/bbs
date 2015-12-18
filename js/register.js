@@ -2,7 +2,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-04 19:17:48
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-13 23:28:51
+ * @Last Modified time: 2015-12-18 00:09:35
  */
 window.onload = function() {
     var oSelectPhoto = document.getElementById('selectPhoto'),
@@ -15,6 +15,10 @@ window.onload = function() {
         oCode = document.getElementById('code'),
         len = aImg.length;
     oForm.username.focus();
+    if (oForm.dataset.reg == 0) {
+        oForm.style.display = 'none';
+        oForm.parentNode.innerHTML = '注册功能被管理员暂时取消了'
+    };
     //头像
     for (var i = 0; i < len; i++) {
         aImg[i].src = aImg[i].alt = 'images/photo/photo (' + (i + 1) + ').jpg';

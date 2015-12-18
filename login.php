@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-06 15:19:49
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:34:21
+ * @Last Modified time: 2015-12-17 23:10:22
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -12,13 +12,15 @@ session_start();
 require dirname(__FILE__).'/includes/common.inc.php';
 //判断登录状态
 login_state();
+global $system;
 //处理登录数据
 if (@$_GET['action'] == 'login') {
      //为防止恶意注册，跨站攻击
-    check_code($_POST['code'],$_SESSION['code']);
+     if ($system['code']==1) {
+        check_code($_POST['code'],$_SESSION['code']);
+     }
     //引入验证文件
     include ROOT_PATH.'includes/login.func.php';
-
     //接收数据
     $clean = array();
     $clean['username'] = check_username($_POST['username'],2,20);
@@ -79,7 +81,7 @@ if (@$_GET['action'] == 'login') {
                     <label for="month"><input type="radio" id="month" name="time" value="3" >一个月</label>
                 </div>
             </div>
-            <div class="form-groups">
+            <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
                 <label class="form-labels" for="" >验证码：</label>
                 <div class="controls">
                     <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
