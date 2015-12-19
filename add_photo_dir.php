@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-18 23:03:47
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-19 12:59:59
+ * @Last Modified time: 2015-12-20 00:40:33
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -37,6 +37,7 @@ if (@$_GET['action'] == 'adddir') {
         //再在主目录里面创建相册目录
         if (!is_dir('photo/'.$clean['dir'])) {
             mkdir('photo/'.$clean['dir']);
+            chmod('photo/'.$clean['dir'], 0777);
         }
         //把当前的目录信息写入数据库
         if (empty($clean['type'])) {
