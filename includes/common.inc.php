@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-03 21:32:17
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-16 12:56:43
+ * @Last Modified time: 2015-12-19 21:10:04
  */
 //设置编码
 header('Content-Type:text/html;charset=utf-8');
@@ -49,12 +49,14 @@ if (empty($message['count'])) {
 
 //网站系统设置初始化
 //读取系统表
-if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_photo_num,bbs_skin,bbs_string,bbs_post_time,bbs_repost_time,bbs_code,bbs_register,bbs_last_modify_date,bbs_modify_user FROM bbs_system WHERE  bbs_id=1 LIMIT 1")) {
+if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_photo_num,bbs_hot_num,bbs_newuser_num,bbs_skin,bbs_string,bbs_post_time,bbs_repost_time,bbs_code,bbs_register,bbs_last_modify_date,bbs_modify_user FROM bbs_system WHERE  bbs_id=1 LIMIT 1")) {
     $system = array();
     $system['webname']=$rows['bbs_webname'];
     $system['article_num']=$rows['bbs_article_num'];
     $system['blog_num']=$rows['bbs_blog_num'];
     $system['photo_num']=$rows['bbs_photo_num'];
+    $system['hot_num']=$rows['bbs_hot_num'];
+    $system['newuser_num']=$rows['bbs_newuser_num'];
     $system['skin']=$rows['bbs_skin'];
     $system['string']=$rows['bbs_string'];
     $system['post_time']=$rows['bbs_post_time'];
@@ -64,6 +66,10 @@ if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_p
     $system['last_modify_date']=$rows['bbs_last_modify_date'];
     $system['modify_user']=$rows['bbs_modify_user'];
     $system=html($system);
+    //如果有skin的cookie，就替换数据库的皮肤
+    if (@$_COOKIE['skin']) {
+        $system['skin']=$_COOKIE['skin'];
+    }
 }else{
     exit('系统表读取错误，请联系管理员');
 }

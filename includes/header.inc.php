@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-03 21:22:59
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-16 13:00:46
+ * @Last Modified time: 2015-12-19 20:54:48
  */
 @session_start();
 //防止恶意调用
@@ -25,7 +25,23 @@ global $system;
             <li><a href="../login.php">登录</a></li>';
                 } ?>
             <li><a href="../blog.php">博友</a></li>
-            <li><a href="#">风格</a></li>
+            <li><a href="../photo_dir.php">相册</a></li>
+            <li class="relative" id="fenge"><a href="javascript:;">风格</a>
+                <ul  style="background:#ddd;position:absolute;left:0;top:40px;display:none;" id="ul">
+                    <li><a href="skin.php?id=1" title="">风格1</a></li>
+                    <li><a href="skin.php?id=2" title="">风格2</a></li>
+                    <li><a href="skin.php?id=3" title="">风格3</a></li>
+                </ul>
+            </li>
+            <script>
+                window.onload = function(){
+                    var oFenge=document.getElementById('fenge');
+                    var oUl=document.getElementById('ul');
+                    oFenge.onclick = function(){
+                        oUl.style.display = 'block';
+                    }
+                }
+            </script>
             <li><a href="message.php" title="查看信息">私信 <?php echo $GLOBALS['message']; ?></a></li>
             
             <?php 

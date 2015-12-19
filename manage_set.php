@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-15 23:56:00
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-16 12:52:55
+ * @Last Modified time: 2015-12-18 20:10:15
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -23,6 +23,8 @@ if (@$_GET['action'] == 'set') {
         $clean['article_num'] =mysql_real_escape_string($_POST['article_num']);
         $clean['blog_num'] =mysql_real_escape_string($_POST['blog_num']);
         $clean['photo_num'] =mysql_real_escape_string($_POST['photo_num']);
+        $clean['hot_num'] =mysql_real_escape_string($_POST['hot_num']);
+        $clean['newuser_num'] =mysql_real_escape_string($_POST['newuser_num']);
         $clean['skin'] =mysql_real_escape_string($_POST['skin']);
         $clean['string'] =mysql_real_escape_string($_POST['string']);
         $clean['post_time'] =mysql_real_escape_string($_POST['post_time']);
@@ -36,6 +38,8 @@ if (@$_GET['action'] == 'set') {
                                     bbs_article_num='{$clean['article_num']}',
                                     bbs_blog_num='{$clean['blog_num']}',
                                     bbs_photo_num='{$clean['photo_num']}',
+                                    bbs_hot_num='{$clean['hot_num']}',
+                                    bbs_newuser_num='{$clean['newuser_num']}',
                                     bbs_skin='{$clean['skin']}',
                                     bbs_string='{$clean['string']}',
                                     bbs_post_time='{$clean['post_time']}',
@@ -66,13 +70,16 @@ if (@$_GET['action'] == 'set') {
         aLert('登录异常');
     }
 }
+
 //读取系统表
-if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_photo_num,bbs_skin,bbs_string,bbs_post_time,bbs_repost_time,bbs_code,bbs_register,bbs_last_modify_date,bbs_modify_user FROM bbs_system WHERE  bbs_id=1 LIMIT 1")) {
+if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_photo_num,bbs_hot_num,bbs_newuser_num,bbs_skin,bbs_string,bbs_post_time,bbs_repost_time,bbs_code,bbs_register,bbs_last_modify_date,bbs_modify_user FROM bbs_system WHERE  bbs_id=1 LIMIT 1")) {
     $html = array();
     $html['webname']=$rows['bbs_webname'];
     $html['article_num']=$rows['bbs_article_num'];
     $html['blog_num']=$rows['bbs_blog_num'];
     $html['photo_num']=$rows['bbs_photo_num'];
+    $html['hot_num']=$rows['bbs_hot_num'];
+    $html['newuser_num']=$rows['bbs_newuser_num'];
     $html['skin']=$rows['bbs_skin'];
     $html['string']=$rows['bbs_string'];
     $html['post_time']=$rows['bbs_post_time'];
@@ -82,40 +89,6 @@ if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_p
     $html['last_modify_date']=$rows['bbs_last_modify_date'];
     $html['modify_user']=$rows['bbs_modify_user'];
     $html=html($html);
-
-    if ($html['article_num'] == 10) {
-        $html['article_num_html']='<select style="height:35px;width:220px;" name="article_num" >
-            <option value="10" selected>每页10篇</option>
-            <option value="15">每页15篇</option>
-        </select>';
-    }elseif($html['article_num'] == 15){
-        $html['article_num_html']='<select style="height:35px;width:220px;" name="article_num" >
-            <option value="10" >每页10篇</option>
-            <option value="15" selected>每页15篇</option>
-        </select>';
-    }
-    if ($html['blog_num'] == 10) {
-        $html['blog_num_html']='<select style="height:35px;width:220px;" name="blog_num" >
-            <option value="10" selected>每页10人</option>
-            <option value="15">每页15人</option>
-        </select>';
-    }elseif($html['blog_num'] == 15){
-        $html['blog_num_html']='<select style="height:35px;width:220px;" name="blog_num" >
-            <option value="10" >每页10人</option>
-            <option value="15" selected>每页15人</option>
-        </select>';
-    }
-    if ($html['photo_num'] == 10) {
-        $html['photo_num_html']='<select style="height:35px;width:220px;" name="photo_num" >
-            <option value="10" selected>每页10张</option>
-            <option value="15">每页15张</option>
-        </select>';
-    }elseif($html['photo_num'] == 15){
-        $html['photo_num_html']='<select style="height:35px;width:220px;" name="photo_num" >
-            <option value="10" >每页10张</option>
-            <option value="15" selected>每页15张</option>
-        </select>';
-    }
 
     if ($html['skin'] == 1) {
         $html['skin_html']='<select style="height:35px;width:220px;" name="skin" >
@@ -194,22 +167,36 @@ if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_p
                         </div>
                     </div>
                     <div class="form-groups">
-                        <label class="form-labels" for="" >文章每页列表数：</label>
+                        <label class="form-labels" for="" >文章每页分页数：</label>
                         <div class="controls">
-                            <?php echo $html['article_num_html']; ?>
+                            <input type="text" name="article_num" value="<?php echo $html['article_num']; ?>">
                         </div>
                     </div>
                     <div class="form-groups">
-                        <label class="form-labels" for="" >博客每页列表数：</label>
+                        <label class="form-labels" for="" >博友每页分页数：</label>
                         <div class="controls">
-                            <?php echo $html['blog_num_html']; ?>
+                            <input type="text" name="blog_num" value="<?php echo $html['blog_num']; ?>">
                         </div>
                     </div>
                     
                     <div class="form-groups">
-                        <label class="form-labels" for="" >相册每页列表数：</label>
+                        <label class="form-labels" for="" >相册每页分页数：</label>
                         <div class="controls">
-                            <?php echo $html['photo_num_html']; ?>
+                            <input type="text" name="photo_num" value="<?php echo $html['photo_num']; ?>">
+                        </div>
+                    </div>
+                    
+                    <div class="form-groups">
+                        <label class="form-labels" for="" >首页主题排行分页数：</label>
+                        <div class="controls">
+                            <input type="text" name="hot_num" value="<?php echo $html['hot_num']; ?>">
+                        </div>
+                    </div>
+                    
+                    <div class="form-groups">
+                        <label class="form-labels" for="" >首页新晋会员分页数：</label>
+                        <div class="controls">
+                            <input type="text" name="newuser_num" value="<?php echo $html['newuser_num']; ?>">
                         </div>
                     </div>
                     <div class="form-groups">

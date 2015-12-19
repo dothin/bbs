@@ -2,7 +2,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-08 13:17:16
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-17 23:32:34
+ * @Last Modified time: 2015-12-18 19:32:30
  */
 (function() {
     var oBlog = document.getElementsByTagName('section')[0],
@@ -13,7 +13,6 @@
         oCode = document.getElementById('code'),
         oForm = document.getElementById('mform'),
         aCodeGroups = document.querySelectorAll(".code-groups"),
-        bOff = true,
         bCode=true;
     document.body.onclick = function(e) {
         var e = e || event;
@@ -25,6 +24,9 @@
                 oMessage.style.top = e.target.parentNode.offsetTop + 40 + 'px';
                 oMessage.style.display = 'block';
                 oMessage.style.transition = 'all .5s';
+                if (oForm.flower) {
+                    oForm.removeChild(oForm.flower);
+                };
                 oForm.action = 'blog.php?action=message';
                 oTips.innerHTML = '发送消息给：';
                 oForm.touser.value = oFriend.innerHTML = e.target.parentNode.parentNode.parentNode.getElementsByTagName('h3')[0].innerHTML;
@@ -35,6 +37,9 @@
                 oMessage.style.left = e.target.parentNode.offsetLeft + 'px';
                 oMessage.style.top = e.target.parentNode.offsetTop + 40 + 'px';
                 oMessage.style.display = 'block';
+                if (oForm.flower) {
+                    oForm.removeChild(oForm.flower);
+                };
                 oForm.action = 'blog.php?action=friend';
                 oTips.innerHTML = '您正在添加好友：';
                 oMessage.style.transition = 'all .5s';
@@ -46,14 +51,13 @@
                 oMessage.style.left = e.target.parentNode.offsetLeft + 'px';
                 oMessage.style.top = e.target.parentNode.offsetTop + 40 + 'px';
                 oMessage.style.display = 'block';
-                if (bOff) {
+                if (!oForm.flower) {
                     var oSelect = document.createElement('select');
                     oSelect.name = 'flower';
                     for (var i = 0; i < 100; i++) {
                         var oOption = document.createElement('option');
                         oOption.innerHTML = i + 1 + '朵鲜花';
                         oSelect.appendChild(oOption);
-                        bOff=false;
                     };
                     //oForm.appendChild(oSelect);
                     oForm.insertBefore(oSelect, oForm.children[0]);

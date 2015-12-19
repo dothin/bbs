@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-15 16:40:03
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:28:41
+ * @Last Modified time: 2015-12-19 20:35:35
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -14,7 +14,7 @@ require dirname(__FILE__).'/includes/common.inc.php';
 if (!isset($_COOKIE['username'])) {
     location('请先登录','login.php');
 }
-//修改数据
+//修改数据,也需要判断权限
 if (@$_GET['action'] == 'modify') {
     //为防止恶意注册，跨站攻击
     check_code($_POST['code'],$_SESSION['code']);
@@ -73,9 +73,12 @@ if (isset($_GET['id'])) {
         $html = html($html);
 
         //判断修改权限
-        if ($_COOKIE['username'] != $html['username']) {
-            alert('您没有权限修改这个主题');
+        if (!isset($_SESSION['admin'])) {
+            if ($_COOKIE['username'] != $html['username']) {
+                alert('您没有权限修改这个主题');
+            }
         }
+        
     }else{
         alert('不存在这个主题');
     }

@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-03 22:35:02
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-18 12:33:17
+ * @Last Modified time: 2015-12-19 20:03:25
  */
 /**
  * [admin_login 管理员登录权限]
@@ -114,15 +114,38 @@ function uniqid_check($mysql_uniqid,$cookie_uniqid){
     }
 }
 /**
+ * [remove_Dir 删除非空目录]
+ * @param  [type] $dirName [description]
+ * @return [type]          [description]
+ */
+function remove_Dir($dirName)
+{
+    if(! is_dir($dirName))
+    {
+        return false;
+    }
+    $handle = @opendir($dirName);
+    while(($file = @readdir($handle)) !== false)
+    {
+        if($file != '.' && $file != '..')
+        {
+            $dir = $dirName . '/' . $file;
+            is_dir($dir) ? remove_Dir($dir) : @unlink($dir);
+        }
+    }
+    closedir($handle);
+    return rmdir($dirName) ;
+} 
+/**
  * [set_xml 注册时生成的xml文件，用于显示新增会员用]
  * @param [type] $xmlfile [文件名]
  * @param [type] $clean   [参数]
  */
 function set_xml($xmlfile,$clean){
     $fp = @fopen($xmlfile, 'w');
-    /*if (!$fp) {
+    if (!$fp) {
         exit('系统错误，文件不存在');
-    }*/
+    }
 
     flock($fp, LOCK_EX);
     $string = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
@@ -260,6 +283,43 @@ function code($width = 80, $height = 35, $rnd_num = 4){
     header('Content-Type:image/png');
     imagepng($img);
     //销毁
+    imagedestroy($img);
+}
+function thumb($filename,$percent){
+    //缩略图
+    //生成png标头文件
+    header('Content-Type:image/png');
+    $n=explode('.', $filename);
+    //获取文件信息，长和高
+    list($width,$height)=getimagesize($filename);
+    //生成微缩长度
+    $new_width = $width*$percent;
+    $new_height = $height*$percent;
+    //创建一个新长度的画布
+    $new_img = imagecreatetruecolor($new_width, $new_height);
+    //按照已有的图片创建一个画布
+    switch ($n[1]) {
+        case 'jpg':
+            $img = imagecreatefromjpeg($filename);
+            break;
+        case 'png':
+            $img = imagecreatefrompng($filename);
+            break;
+        case 'gif':
+            $img = imagecreatefromgif($filename);
+            break;
+        
+        default:
+            # code...
+            break;
+    }
+
+    //将原图采集后重新复制到新图上，形成缩略图
+    imagecopyresampled($new_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    //显示新图
+    imagejpeg($new_img);
+    //销毁
+    imagedestroy($new_img);
     imagedestroy($img);
 }
 /**

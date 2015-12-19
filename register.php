@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-04 15:50:16
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-18 00:17:30
+ * @Last Modified time: 2015-12-18 19:34:52
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -87,7 +87,7 @@ if (@$_GET['action'] == 'register') {
         //清除session
         //session_destroy();
         //生成xml
-        set_xml('new.xml',$clean);
+        //set_xml('new.xml',$clean);
         //跳转到首页
         location('恭喜您注册成功！','active.php?active='.$clean['active']);
     }else{

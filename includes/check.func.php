@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-04 22:37:17
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-18 00:23:40
+ * @Last Modified time: 2015-12-19 14:59:18
  */
 //防止恶意调用
 if (!defined('IN_TG')) {
@@ -267,6 +267,38 @@ function check_signature($str,$max){
     //限制长度
     if (mb_strlen($str,'utf-8') > $max ) {
         alert('签名内容不得大于'.$max);
+    }
+    return $str;
+}
+/**
+ * [check_dir_name 验证相册名称]
+ * @param  [type] $str [description]
+ * @param  [type] $min [description]
+ * @param  [type] $max [description]
+ * @return [type]      [description]
+ */
+function check_dir_name($str,$min,$max){
+    //限制长度
+    if (mb_strlen($str,'utf-8') < $min || mb_strlen($str,'utf-8') > $max) {
+        alert('名称为'.$min.'到'.$max);
+    }
+    return $str;
+}
+/**
+ * [check_dir_password 验证相册密码]
+ * @param  [type] $str [description]
+ * @param  [type] $min [description]
+ * @return [type]      [description]
+ */
+function check_dir_password($str,$min){
+    if (strlen($str) < $min) {
+        alert('密码最少'.$min.'位！');
+    }
+    return mysql_real_escape_string(sha1($str));
+}
+function check_photo_url($str){
+    if (empty($str)) {
+        alert('图片地址不能为空');
     }
     return $str;
 }

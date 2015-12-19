@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-14 21:11:03
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-18 00:12:07
+ * @Last Modified time: 2015-12-19 21:09:50
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -11,6 +11,30 @@ session_start();
 //引入公共文件,转换成硬路径，速度更快
 require dirname(__FILE__).'/includes/common.inc.php';
 global $system;
+//处理精华帖
+if (@$_GET['action'] =='nice'&&isset($_GET['id'])&&isset($_GET['b'])) {
+    //为防止恶意注册，跨站攻击
+    if ($system['code']==1) {
+        check_code($_POST['code'],$_SESSION['code']);
+     }
+    if (!!$rows=fetch_array("SELECT bbs_uniqid,bbs_repost_time FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}' LIMIt 1")) {
+        //为了防止cookie伪造，要比对一下唯一标识符uniqid
+        uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
+        //设置精华帖,或者取消精华帖
+        query("UPDATE bbs_article SET bbs_nice='{$_GET['b']}' WHERE bbs_id='{$_GET['id']}'");
+        if (affected_rows() ==1) {
+            //关闭数据库
+            close();
+            location('设置成功！','article.php?id='.$_GET['id']);
+        }else{
+            //关闭数据库
+            close();
+            alert('设置失败');
+        }
+    }else{
+        alert('非法登录');
+    }
+}
 //处理回帖
 if (@$_GET['action']=='repost') {
     //为防止恶意注册，跨站攻击
@@ -79,7 +103,7 @@ if (@$_GET['action']=='repost') {
 //读出数据
 if (isset($_GET['id'])) {
     //判断主题帖子是否存在,回帖不算
-    if (!!$rows = fetch_array("SELECT bbs_id,bbs_username,bbs_title,bbs_type,bbs_content,bbs_readcount,bbs_commentcount,bbs_last_modify_date,bbs_date FROM bbs_article WHERE bbs_reid=0 AND bbs_id='{$_GET['id']}'")) {
+    if (!!$rows = fetch_array("SELECT bbs_id,bbs_username,bbs_title,bbs_type,bbs_content,bbs_readcount,bbs_commentcount,bbs_nice,bbs_last_modify_date,bbs_date FROM bbs_article WHERE bbs_reid=0 AND bbs_id='{$_GET['id']}'")) {
         //累计阅读量
         query("UPDATE bbs_article SET bbs_readcount=bbs_readcount+1 WHERE bbs_id='{$_GET['id']}'");
         $html = array();
@@ -91,6 +115,7 @@ if (isset($_GET['id'])) {
         $html['content'] = $rows['bbs_content'];
         $html['readcount'] = $rows['bbs_readcount'];
         $html['commentcount'] = $rows['bbs_commentcount'];
+        $html['nice'] = $rows['bbs_nice'];
         $html['last_modify_date'] = $rows['bbs_last_modify_date'];
         $html['date'] = $rows['bbs_date'];
 
@@ -111,7 +136,7 @@ if (isset($_GET['id'])) {
             global $id;
             $id='id='.$html['reid'].'&';
             //主题帖修改
-            if ($html['username_subject']==@$_COOKIE['username']) {
+            if ($html['username_subject']==@$_COOKIE['username']|| isset($_SESSION['admin'])) {
                 $html['subject_modify']='[<a href="article_modify.php?id='.$html['reid'].'" title="修改">修改</a>]';
             }
             //读取最后修改时间
@@ -161,6 +186,15 @@ if (isset($_GET['id'])) {
     <?php if ($page==1) {?>
     <section class="container clear subject">
         <h2>帖子详情</h2>
+        <?php 
+            //浏览量达到200并且评论量达到10为热帖
+            if ($html['readcount']>=200&&$html['commentcount']>=10) {
+                echo '<h1 style="color:red;">热</h1>';
+            }
+            if (!empty($html['nice'])) {
+                echo '<h1 style="color:red;">精</h1>';
+            }
+         ?>
         <aside class="fl w340 mr10">
             <section>
                 <h2>楼主</h2>
@@ -185,8 +219,18 @@ if (isset($_GET['id'])) {
         <div class="fr w650">
             <section>
                 <header>
-                    <span class="fr"><?php echo @$html['subject_modify']; ?>1#</span><?php echo $html['username_subject']; ?>|发表于：<?php echo $html['date']; ?>
-                    <?php echo @$html['re']; ?>
+                    <span class="fr">
+                    <?php 
+                        if (@$_SESSION['admin']) {
+                            if (empty($html['nice'])) {
+                                echo '<a href="article.php?action=nice&b=1&id='.$html['reid'].'" title="">[设置为精华帖]</a>';
+                            }else{
+                                echo '<a href="article.php?action=nice&b=0&id='.$html['reid'].'" title="">[取消精华帖]</a>';
+                            }
+                        }
+                     ?>
+                    1#</span><?php echo $html['username_subject']; ?>|发表于：<?php echo $html['date']; ?>
+                    <?php echo @$html['re']; ?><?php echo @$html['subject_modify']; ?>
                 </header>
                 <section>
                     <h3><?php echo $html['title']; ?></h3>
