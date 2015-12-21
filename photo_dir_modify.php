@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-19 00:53:18
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-19 19:07:34
+ * @Last Modified time: 2015-12-20 21:26:41
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -95,7 +95,7 @@ if (isset($_GET['id'])) {
     <?php 
         require ROOT_PATH.'includes/header.inc.php';
     ?>
-    <section class="container blog clear">
+    <div class="container blog clear">
         <h2>修改相册</h2>
         <form class="form-horizontal" method="post" name="addphoto" action="photo_dir_modify.php?action=modify">
             <input type="hidden" name="id" value="<?php echo $html['id'];?>">
@@ -134,7 +134,7 @@ if (isset($_GET['id'])) {
             </div>
             <div class="form-groups"><input type="submit" class="btn-blue" value="添加目录" ></div>
         </form>
-    </section>
+    </div>
     <script>
         var oType = document.getElementById('type');
         var aType = document.getElementsByName('type');

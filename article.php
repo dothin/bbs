@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-14 21:11:03
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-19 21:09:50
+ * @Last Modified time: 2015-12-20 21:19:10
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -184,8 +184,7 @@ if (isset($_GET['id'])) {
         require ROOT_PATH.'includes/header.inc.php';
     ?>
     <?php if ($page==1) {?>
-    <section class="container clear subject">
-        <h2>帖子详情</h2>
+    <div class="subject container clear ">
         <?php 
             //浏览量达到200并且评论量达到10为热帖
             if ($html['readcount']>=200&&$html['commentcount']>=10) {
@@ -196,28 +195,26 @@ if (isset($_GET['id'])) {
             }
          ?>
         <aside class="fl w340 mr10">
-            <section>
-                <h2>楼主</h2>
-                <figure>
-                    <img src="<?php echo $html['photo']; ?>" alt="<?php echo $html['username_subject']; ?>">
-                    <figcaption>
-                        <h3 class="hide"><?php echo $html['username_subject']; ?></h3>
-                        <h3><?php echo $html['username_subject']; ?>[楼主]</h3>
-                        <em><?php echo $html['sex']; ?></em>
-                        <ul>
-                            <li><a href="javascript:;" name="message" title="<?php echo $html['userid']; ?>">发私信</a></li>
-                            <li><a href="javascript:;" name="friend">加为好友</a></li>
-                            <li><a href="javascript:;">写留言</a></li>
-                            <li><a href="javascript:;" name="flower">送鲜花</a></li>
-                            <li>邮件：<a href="mailto:<?php echo $html['email']; ?>" title=""><?php echo $html['email']; ?></a></li>
-                            <li>网址：<a href="<?php echo $html['url']; ?>" title=""><?php echo $html['url']; ?></a></li>
-                        </ul>
-                    </figcaption>
-                </figure>
-            </section>
+            <h2>楼主</h2>
+            <figure>
+                <img src="<?php echo $html['photo']; ?>" alt="<?php echo $html['username_subject']; ?>">
+                <figcaption>
+                    <h3 class="hide"><?php echo $html['username_subject']; ?></h3>
+                    <h3><?php echo $html['username_subject']; ?>[楼主]</h3>
+                    <em><?php echo $html['sex']; ?></em>
+                    <ul>
+                        <li><a href="javascript:;" name="message" title="<?php echo $html['userid']; ?>">发私信</a></li>
+                        <li><a href="javascript:;" name="friend">加为好友</a></li>
+                        <li><a href="javascript:;">写留言</a></li>
+                        <li><a href="javascript:;" name="flower">送鲜花</a></li>
+                        <li>邮件：<a href="mailto:<?php echo $html['email']; ?>" title=""><?php echo $html['email']; ?></a></li>
+                        <li>网址：<a href="<?php echo $html['url']; ?>" title=""><?php echo $html['url']; ?></a></li>
+                    </ul>
+                </figcaption>
+            </figure>
         </aside>
         <div class="fr w650">
-            <section>
+            <article>
                 <header>
                     <span class="fr">
                     <?php 
@@ -235,121 +232,115 @@ if (isset($_GET['id'])) {
                 <section>
                     <h3><?php echo $html['title']; ?></h3>
                     <span>类型：<?php echo $html['type']; ?></span>
-                    <article>
+                    <p>
                         <?php echo ubb($html['content']); ?>   
-                    </article>
-                    <footer>
-                        <span>阅读量:<mark><?php echo $html['readcount'] ?></mark></span>
-                        <span>评论数:<mark><?php echo $html['commentcount'] ?></mark></span>
-                        <span><?php echo @$html['last_modify_date_string']; ?></span>
-                        <?php echo @$html['signature_html']; ?>
-                    </footer>
+                    </p>
                 </section>
-            </section>
+                <footer>
+                    <span>阅读量:<mark><?php echo $html['readcount'] ?></mark></span>
+                    <span>评论数:<mark><?php echo $html['commentcount'] ?></mark></span>
+                    <span><?php echo @$html['last_modify_date_string']; ?></span>
+                    <?php echo @$html['signature_html']; ?>
+                </footer>
+            </article>
         </div>
-    </section>
+    </div>
        
     <?php } ?>
     <div class="container">
-        <section >
-            <h2 class="ddd">回帖情况</h2>
-            <?php 
-                //pager参数：t表示文本式分页，n表数字分页
-                pager('t');
-                $i=2;
-                while ( !!$rows = fetch_array_list($result,MYSQL_ASSOC)) {
-                    $html['username'] = $rows['bbs_username'];
-                    $html['title'] = $rows['bbs_title'];
-                    $html['type'] = $rows['bbs_type'];
-                    $html['content'] = $rows['bbs_content'];
-                    $html['date'] = $rows['bbs_date'];
-                    $html = html($html);
-                    
-                //拿出用户名去查找用户信息
-                if (!!$rows = fetch_array("SELECT bbs_id,bbs_sex,bbs_photo,bbs_email,bbs_url,bbs_switch,bbs_signature FROM bbs_users WHERE bbs_username='{$html['username']}'")) {
-                    //提取用户信息
-                    $html['userid']=$rows['bbs_id'];
-                    $html['sex']=$rows['bbs_sex'];
-                    $html['photo']=$rows['bbs_photo'];
-                    $html['email']=$rows['bbs_email'];
-                    $html['url']=$rows['bbs_url'];
-                    $html['switch']=$rows['bbs_switch'];
-                    $html['signature']=$rows['bbs_signature'];
-                    $html = html($html);
-                    //楼层信息
-                    if ($i==2&&$page==1) {
-                        if ($html['username'] == $html['username_subject']) {
-                            $html['username_html'] =$html['username'].'[楼主]';
-                        }else{
-                            $html['username_html'] =$html['username'].'[沙发]';
-                        }
-                        
+        <h2 class="ddd">回帖情况</h2>
+        <?php 
+            //pager参数：t表示文本式分页，n表数字分页
+            pager('t');
+            $i=2;
+            while ( !!$rows = fetch_array_list($result,MYSQL_ASSOC)) {
+                $html['username'] = $rows['bbs_username'];
+                $html['title'] = $rows['bbs_title'];
+                $html['type'] = $rows['bbs_type'];
+                $html['content'] = $rows['bbs_content'];
+                $html['date'] = $rows['bbs_date'];
+                $html = html($html);
+                
+            //拿出用户名去查找用户信息
+            if (!!$rows = fetch_array("SELECT bbs_id,bbs_sex,bbs_photo,bbs_email,bbs_url,bbs_switch,bbs_signature FROM bbs_users WHERE bbs_username='{$html['username']}'")) {
+                //提取用户信息
+                $html['userid']=$rows['bbs_id'];
+                $html['sex']=$rows['bbs_sex'];
+                $html['photo']=$rows['bbs_photo'];
+                $html['email']=$rows['bbs_email'];
+                $html['url']=$rows['bbs_url'];
+                $html['switch']=$rows['bbs_switch'];
+                $html['signature']=$rows['bbs_signature'];
+                $html = html($html);
+                //楼层信息
+                if ($i==2&&$page==1) {
+                    if ($html['username'] == $html['username_subject']) {
+                        $html['username_html'] =$html['username'].'[楼主]';
                     }else{
-                        $html['username_html'] =$html['username'];
+                        $html['username_html'] =$html['username'].'[沙发]';
                     }
                     
                 }else{
-
+                    $html['username_html'] =$html['username'];
                 }
-            ?>
-            <section class="clear">
-                <aside class="fl w340 mr10">
-                    <section>
-                        <h2>回帖用户</h2>
-                        <figure>
-                            <img src="<?php echo $html['photo']; ?>" alt="">
-                            <figcaption>
-                                    <h3 class="hide"><?php echo $html['username']; ?></h3>
-                                    <h3><?php echo $html['username_html']; ?></h3>
-                                
-                                <em><?php echo $html['sex']; ?></em>
-                                <ul>
-                                    <li><a href="javascript:;" name="message" title="<?php echo $html['userid']; ?>">发私信</a></li>
-                                    <li><a href="javascript:;" name="friend">加为好友</a></li>
-                                    <li><a href="javascript:;">写留言</a></li>
-                                    <li><a href="javascript:;" name="flower">送鲜花</a></li>
-                                    <li>邮件：<a href="mailto:<?php echo $html['email']; ?>" title=""><?php echo $html['email']; ?></a></li>
-                                    <li>网址：<a href="<?php echo $html['url']; ?>" title=""><?php echo $html['url']; ?></a></li>
-                                </ul>
-                            </figcaption>
-                        </figure>
-                    </section>
-                </aside>
-                <div class="fr w650">
-                    <section>
-                        <header>
-                            <span  class="fr"><?php echo ($page-1)*$page_size+$i; ?>#</span><?php echo $html['username']; ?>|发表于：<?php echo $html['date']; ?>
-                            <a href="javascript:;" name="re" title="回复<?php echo ($page-1)*$page_size+$i; ?>楼的<?php echo $html['username']; ?>">[回复]</a>
-                        </header>
-                        <section>
-                            <h3><?php echo $html['title']; ?></h3>
-                            <span>类型：<?php echo $html['type']; ?></span>
-                            <article>
-                                <?php echo ubb($html['content']); ?> 
-                            </article>
-                            
-                        </section>
-                        <footer>
+                
+            }else{
 
-                            <?php 
-                                //个性签名
-                                if ($html['switch'] == 1) {
-                                    echo '<p>个性签名：'.$html['signature'].'</p>';
-                                }
-                             ?>
-                        </footer>
+            }
+        ?>
+        <section class="clear">
+            <aside class="fl w340 mr10">
+                <h2>回帖用户</h2>
+                <figure>
+                    <img src="<?php echo $html['photo']; ?>" alt="">
+                    <figcaption>
+                            <h3 class="hide"><?php echo $html['username']; ?></h3>
+                            <h3><?php echo $html['username_html']; ?></h3>
+                        
+                        <em><?php echo $html['sex']; ?></em>
+                        <ul>
+                            <li><a href="javascript:;" name="message" title="<?php echo $html['userid']; ?>">发私信</a></li>
+                            <li><a href="javascript:;" name="friend">加为好友</a></li>
+                            <li><a href="javascript:;">写留言</a></li>
+                            <li><a href="javascript:;" name="flower">送鲜花</a></li>
+                            <li>邮件：<a href="mailto:<?php echo $html['email']; ?>" title=""><?php echo $html['email']; ?></a></li>
+                            <li>网址：<a href="<?php echo $html['url']; ?>" title=""><?php echo $html['url']; ?></a></li>
+                        </ul>
+                    </figcaption>
+                </figure>
+            </aside>
+            <div class="fr w650">
+                <article>
+                    <header>
+                        <span  class="fr"><?php echo ($page-1)*$page_size+$i; ?>#</span><?php echo $html['username']; ?>|发表于：<?php echo $html['date']; ?>
+                        <a href="javascript:;" name="re" title="回复<?php echo ($page-1)*$page_size+$i; ?>楼的<?php echo $html['username']; ?>">[回复]</a>
+                    </header>
+                    <section>
+                        <h3><?php echo $html['title']; ?></h3>
+                        <span>类型：<?php echo $html['type']; ?></span>
+                        <p>
+                            <?php echo ubb($html['content']); ?> 
+                        </p>
+                        
                     </section>
-                </div>
-            </section>
-            <?php 
-                    $i++;
-                }
-                free_result($result);
-                //pager参数：t表示文本式分页，n表数字分页
-                pager('t');
-            ?>
-
+                    <footer>
+                        <?php 
+                            //个性签名
+                            if ($html['switch'] == 1) {
+                                echo '<p>个性签名：'.$html['signature'].'</p>';
+                            }
+                         ?>
+                    </footer>
+                </article>
+            </div>
         </section>
+        <?php 
+                $i++;
+            }
+            free_result($result);
+            //pager参数：t表示文本式分页，n表数字分页
+            pager('t');
+        ?>
         <script>
             //回复楼层
             var aRe = document.getElementsByName('re');
@@ -367,43 +358,43 @@ if (isset($_GET['id'])) {
         </script>
         <hr>
         <?php if (isset($_COOKIE['username'])) {?>
-            <section id="re">
-                <form class="form-horizontal" method="post" name="post" action="?action=repost">
-                    <input type="hidden" name="reid" value="<?php echo $html['reid']; ?>">
-                    <input type="hidden" name="type" value="<?php echo $html['type']; ?>">
-                    <div class="form-groups">
-                        <label class="form-labels" for="type1" >标题：</label>
-                        <div class="controls">
-                            <input type="text" name="title" value="<?php echo $html['title']; ?>"> 
-                        </div>
+        <div id="re">
+            <form class="form-horizontal" method="post" name="post" action="?action=repost">
+                <input type="hidden" name="reid" value="<?php echo $html['reid']; ?>">
+                <input type="hidden" name="type" value="<?php echo $html['type']; ?>">
+                <div class="form-groups">
+                    <label class="form-labels" for="type1" >标题：</label>
+                    <div class="controls">
+                        <input type="text" name="title" value="<?php echo $html['title']; ?>"> 
                     </div>
-                    <div class="form-groups">
-                        <label class="form-labels" for="type1" >贴图：</label>
-                        <div class="controls" id="emoji">
-                            <a href="javascript:;">贴图一</a>
-                            <a href="javascript:;">贴图二</a>
-                            <a href="javascript:;">贴图三</a>
-                        </div>
+                </div>
+                <div class="form-groups">
+                    <label class="form-labels" for="type1" >贴图：</label>
+                    <div class="controls" id="emoji">
+                        <a href="javascript:;">贴图一</a>
+                        <a href="javascript:;">贴图二</a>
+                        <a href="javascript:;">贴图三</a>
                     </div>
-                    <div class="form-groups relative">
-                        <label class="form-labels" for="type1" >内容：</label>
-                        <div class="controls">
-                            <?php include ROOT_PATH.'includes/ubb.inc.php'; ?>
-                            <textarea name="content" cols="46" rows="10"></textarea>
-                        </div>
+                </div>
+                <div class="form-groups relative">
+                    <label class="form-labels" for="type1" >内容：</label>
+                    <div class="controls">
+                        <?php include ROOT_PATH.'includes/ubb.inc.php'; ?>
+                        <textarea name="content" cols="46" rows="10"></textarea>
                     </div>
-                    <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
-                        <label class="form-labels" for="" >验证码：</label>
-                        <div class="controls">
-                            <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
-                        </div>
+                </div>
+                <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
+                    <label class="form-labels" for="" >验证码：</label>
+                    <div class="controls">
+                        <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                     </div>
-                    <div class="form-groups">
-                        <input type="submit" class="btn-blue" value="发表帖子" >
-                    </div>
-                    
-                </form>
-            </section>
+                </div>
+                <div class="form-groups">
+                    <input type="submit" class="btn-blue" value="发表帖子" >
+                </div>
+                
+            </form>
+        </div>
         <?php } ?>
     </div>
     <div id="message" class="hide">

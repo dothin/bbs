@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2015-12-19 17:42:22
+-- Generation Time: 2015-12-21 07:04:16
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `bbs_article` (
   `bbs_last_modify_date` datetime NOT NULL COMMENT '最后修改时间',
   `bbs_date` datetime NOT NULL COMMENT '发帖时间',
   PRIMARY KEY (`bbs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
 
 --
 -- 转存表中的数据 `bbs_article`
@@ -49,9 +49,9 @@ INSERT INTO `bbs_article` (`bbs_id`, `bbs_reid`, `bbs_username`, `bbs_type`, `bb
 (2, 0, '石昊', 7, '你好石昊', '你好石昊你好石昊你好石昊你好石昊你好石昊你好石昊', 1, 0, 0, '0000-00-00 00:00:00', '2015-12-14 21:08:01'),
 (3, 0, '石昊', 8, '我是荒天帝', '我是石昊我是荒天帝，你是谁', 2, 0, 0, '0000-00-00 00:00:00', '2015-12-14 21:10:14'),
 (4, 0, '石昊', 8, '我是荒天帝，你是谁', '李克强主持的上合总理会有啥讲究？\r\n探营世界互联网大会：乌镇一日街拍见闻  互联网大会专题\r\n银联发布官方移动支付 能否成功反击支付宝们\r\n银联或牵手Apple Pay  很难打败第三方支付  银联线下渠道有优势\r\n北京高院：薄谷开来与刘志军已被减刑至无期\r\n黄光裕获得两次改造积极分子 被建议再减刑一年\r\n天津港爆炸调查：官商勾连行为脱缰等是根源\r\n江苏全境遭雾霾袭城 官方:北方污染输送为主因\r\n环保部：一钢独大或一煤独大是华北空气污染主因\r\n中国第16集团军新规：亲兄弟禁分到同一战车', 5, 0, 0, '0000-00-00 00:00:00', '2015-12-14 21:50:53'),
-(5, 0, '石昊', 1, '发帖测试功能', '[size=24]字体大小[/size]\r\n[b]加粗[/b]\r\n[i]倾斜[/i]\r\n[u]下划线[/u]\r\n[s]删除线[/s]\r\n[color=#808000]颜色[/color]\r\n[url]http://www.baidu.com[/url]\r\n[email]1286513426@qq.com[/email][img]emoji/2/1.gif[/img]\r\n[flash]http://player.youku.com/player.php/sid/XMTQxMjAxMjg0NA==/v.swf[/flash]', 36, 0, 0, '0000-00-00 00:00:00', '2015-12-14 22:02:26'),
+(5, 0, '石昊', 1, '发帖测试功能', '[size=24]字体大小[/size]\r\n[b]加粗[/b]\r\n[i]倾斜[/i]\r\n[u]下划线[/u]\r\n[s]删除线[/s]\r\n[color=#808000]颜色[/color]\r\n[url]http://www.baidu.com[/url]\r\n[email]1286513426@qq.com[/email][img]emoji/2/1.gif[/img]\r\n[flash]http://player.youku.com/player.php/sid/XMTQxMjAxMjg0NA==/v.swf[/flash]', 37, 0, 0, '0000-00-00 00:00:00', '2015-12-14 22:02:26'),
 (6, 0, '石昊', 2, '我是叶凡，我是叶天帝，你是石昊？', '我是叶凡，我是叶天帝，你是石昊？我是叶凡，我是叶天帝，你是石昊？[b]我是叶凡，我是叶天帝，你是石昊？我是叶凡，我是叶天帝，你是石昊？[/b][color=#f00]我是叶凡，我是叶天帝，你是石昊？我是叶凡，我是叶天帝，你是石昊？[/color][img]emoji/3/5.gif[/img][img]emoji/2/6.gif[/img][img]emoji/1/11.gif[/img]', 7, 0, 0, '0000-00-00 00:00:00', '2015-12-14 22:29:28'),
-(7, 0, '石昊', 4, '我我是叶天帝是叶凡，你是石昊？', '我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡[img]emoji/1/2.gif[/img][img]emoji/3/1.gif[/img][img]emoji/1/7.gif[/img][color=#f00]我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶[/color]', 256, 15, 1, '2015-12-15 17:19:40', '2015-12-14 22:30:23'),
+(7, 0, '石昊', 4, '我我是叶天帝是叶凡，你是石昊？', '我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡[img]emoji/1/2.gif[/img][img]emoji/3/1.gif[/img][img]emoji/1/7.gif[/img][color=#f00]我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶[/color]', 258, 15, 1, '2015-12-15 17:19:40', '2015-12-14 22:30:23'),
 (8, 0, '石昊', 1, '很大发大水发大厦很大送货单等哈', '很大发大水发大厦很大送货单等哈很大发大水发大厦很大送货单等哈很大发大水发大厦很大送货单等哈', 39, 0, 0, '0000-00-00 00:00:00', '2015-12-14 22:30:44'),
 (9, 0, '石昊', 1, 'rerererererererererererererere', 'rererererererererererererererererererererererererererererererererererererererererererererererererere[img]emoji/2/2.gif[/img]', 28, 2, 0, '0000-00-00 00:00:00', '2015-12-14 22:31:02'),
 (15, 7, '路飞', 1, '我我是叶天帝是叶凡，你是石昊？', 'fdasfdsaf', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-15 00:18:40'),
@@ -101,7 +101,9 @@ INSERT INTO `bbs_article` (`bbs_id`, `bbs_reid`, `bbs_username`, `bbs_type`, `bb
 (59, 58, '石日天', 1, 'fdasfdsaf', '发大水发大厦', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-17 23:46:16'),
 (60, 58, '石昊', 1, '回复2楼的石日天', 'fdasfdsafdsafdsafd', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-17 23:46:29'),
 (61, 57, '石昊', 1, 'fdafdsafd', 'fdasf ', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-17 23:48:09'),
-(62, 0, '石日天', 1, '乐乐乐', '发大水发大厦[img]emoji/2/2.gif[/img]', 6, 0, 0, '0000-00-00 00:00:00', '2015-12-18 00:05:07');
+(62, 0, '石日天', 1, '乐乐乐', '发大水发大厦[img]emoji/2/2.gif[/img]', 7, 0, 0, '0000-00-00 00:00:00', '2015-12-18 00:05:07'),
+(63, 0, '石昊', 7, '好打发多少', '范德萨发大厦[img]emoji/2/1.gif[/img]', 1, 0, 0, '0000-00-00 00:00:00', '2015-12-20 23:44:44'),
+(64, 0, '石昊', 1, '有好打发多少', '范德萨发大厦[img]emoji/3/1.gif[/img][img]emoji/2/2.gif[/img]', 1, 0, 0, '0000-00-00 00:00:00', '2015-12-20 23:50:13');
 
 -- --------------------------------------------------------
 
@@ -170,6 +172,32 @@ INSERT INTO `bbs_friend` (`bbs_id`, `bbs_touser`, `bbs_fromuser`, `bbs_content`,
 (14, '石昊', 'dothin', '石昊，你好，我想和你家朋友', 0, '2015-12-10 12:43:56'),
 (15, '石昊', '路飞飞', '石昊你好', 0, '2015-12-10 12:59:45'),
 (16, '石日天', '石昊', '日天石你好', 1, '2015-12-13 22:28:09');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bbs_hot_keys`
+--
+
+CREATE TABLE IF NOT EXISTS `bbs_hot_keys` (
+  `bbs_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '热搜关键词ID',
+  `bbs_keys` varchar(40) NOT NULL COMMENT '关键词',
+  `bbs_count` tinyint(3) unsigned NOT NULL COMMENT '搜索次数',
+  PRIMARY KEY (`bbs_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- 转存表中的数据 `bbs_hot_keys`
+--
+
+INSERT INTO `bbs_hot_keys` (`bbs_id`, `bbs_keys`, `bbs_count`) VALUES
+(3, '多少', 9),
+(4, 'fd', 8),
+(5, '测试', 12),
+(6, '我是石昊', 0),
+(7, '我是土匪', 25),
+(8, '1', 4),
+(9, '石昊', 10);
 
 -- --------------------------------------------------------
 
@@ -345,7 +373,7 @@ CREATE TABLE IF NOT EXISTS `bbs_system` (
 --
 
 INSERT INTO `bbs_system` (`bbs_id`, `bbs_webname`, `bbs_article_num`, `bbs_blog_num`, `bbs_photo_num`, `bbs_hot_num`, `bbs_newuser_num`, `bbs_skin`, `bbs_string`, `bbs_post_time`, `bbs_repost_time`, `bbs_code`, `bbs_register`, `bbs_last_modify_date`, `bbs_modify_user`) VALUES
-(1, '毕业设计--bbs', '10', '12', '4', '10', '5', 1, '傻逼|日龙包', 60, 30, 0, 1, '2015-12-19 16:14:31', '石昊');
+(1, '毕业设计--论坛', '10', '12', '4', '10', '5', 1, '傻逼|日龙包', 60, 30, 0, 1, '2015-12-21 13:55:35', '石昊');
 
 -- --------------------------------------------------------
 
@@ -383,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `bbs_users` (
 --
 
 INSERT INTO `bbs_users` (`bbs_id`, `bbs_uniqid`, `bbs_active`, `bbs_username`, `bbs_password`, `bbs_question`, `bbs_answer`, `bbs_sex`, `bbs_photo`, `bbs_level`, `bbs_email`, `bbs_qq`, `bbs_url`, `bbs_switch`, `bbs_signature`, `bbs_post_time`, `bbs_repost_time`, `bbs_reg_time`, `bbs_last_time`, `bbs_last_ip`, `bbs_login_count`) VALUES
-(1, '2496826aa72b5ddb242bb2f1c51619d942be8fba', '', '石昊', 'b216fd63e5f3a5ef423bbe9852426a51f7486ac6', '石昊', 'f35324f1c2398e6d197c2ddcd4c9de369d1a9ff4', '男', 'images/photo/photo (2).jpg', 1, '123456789@qq.com', '45645633', 'http://www.globcn.com', 1, '我是石昊，我是荒天帝', '1450367166', '1450367289', '2015-12-06 14:58:06', '2015-12-19 18:24:38', '127.0.0.1', 43),
+(1, '2496826aa72b5ddb242bb2f1c51619d942be8fba', '', '石昊', 'b216fd63e5f3a5ef423bbe9852426a51f7486ac6', '石昊', 'f35324f1c2398e6d197c2ddcd4c9de369d1a9ff4', '男', 'images/photo/photo (8).jpg', 1, '123456789@qq.com', '45645633', 'http://www.globcn.com', 1, '我是石昊，我是荒天帝', '1450626613', '1450367289', '2015-12-06 14:58:06', '2015-12-21 13:55:18', '127.0.0.1', 47),
 (33, 'df1b620362eaa3c0aa77761a380da117498f94c0', '', '叶凡', 'f475e7dc81e05984be070af842846137464c6d1b', '叶凡', 'c01b75e6393e2bf0c104112b889ffe585084336e', '男', 'images/photo/photo (1).jpg', 0, '432432@qq.com', '', '', 0, NULL, '0', '0', '2015-12-06 15:04:19', '2015-12-06 15:04:19', '127.0.0.1', 0),
 (34, 'f32e1f4459618f7cf5e98bb01ed8d2f43c4fcefc', '', '月婵', '73406872c52a4736b6db379061332ffaae7bbf98', '月婵', '6309114c6e6048304a66ffe1409eb071281eef24', '女', 'images/photo/photo (1).jpg', 0, '432432@qq.com', '', '', 0, NULL, '0', '0', '2015-12-06 15:07:33', '2015-12-06 15:07:33', '127.0.0.1', 0),
 (35, '33656fdc3635104d9890a67634e1283a6bdacc1e', '', '黑皇', 'a68cd2408f1cdf0b975e2f95b7b26a9f5ac7582a', '黑皇', 'eccea58dd05464a24f38fdeb4f9a2a32e1ed2f4a', '男', 'images/photo/photo (1).jpg', 0, '432432@qq.com', '434343433', '', 0, NULL, '0', '0', '2015-12-06 15:10:59', '2015-12-06 15:10:59', '127.0.0.1', 0),

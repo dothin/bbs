@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-15 23:36:17
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:53:38
+ * @Last Modified time: 2015-12-20 21:23:40
  */
 session_start();
 //定义一个常量，用来授权调用includes里面的文件
@@ -28,8 +28,7 @@ admin_login();
     ?>
     <div class="container oh uz">
         <?php require ROOT_PATH.'includes/manage.inc.php'; ?>
-        <div class="main fr">
-            <section class="user">
+        <div class="main fr user">
                 <h2>后台管理中心</h2>
                 <dl>
                     <dt>·服务器主机名称：</dt>
@@ -55,7 +54,6 @@ admin_login();
                     <dt>·Apache及PHP版本：</dt>
                     <dd><?php echo $_SERVER["SERVER_SOFTWARE"]; ?></dd>
                 </dl>
-            </section>
         </div>
     </div>
     <?php 

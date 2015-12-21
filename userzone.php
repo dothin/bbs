@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-07 13:17:42
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-09 11:52:13
+ * @Last Modified time: 2015-12-20 21:27:46
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -57,8 +57,7 @@ if (isset($_COOKIE['username'])) {
     ?>
     <div class="container oh uz">
         <?php require ROOT_PATH.'includes/userzone.inc.php'; ?>
-        <div class="main fr">
-            <section class="user">
+        <div class="main fr user">
                 <h2>会员管理中心</h2>
                 <dl>
                     <dt>用户名</dt>
@@ -78,7 +77,6 @@ if (isset($_COOKIE['username'])) {
                     <dt>身份</dt>
                     <dd><?php echo $html['level']; ?></dd>
                 </dl>
-            </section>
         </div>
     </div>
     <?php 

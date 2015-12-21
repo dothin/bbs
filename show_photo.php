@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-19 12:51:29
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-19 19:39:37
+ * @Last Modified time: 2015-12-20 21:27:10
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -99,7 +99,7 @@ $result = query("SELECT bbs_id,bbs_username,bbs_name,bbs_url,bbs_readcount,bbs_c
     <?php 
         require ROOT_PATH.'includes/header.inc.php';
     ?>
-    <section class="container blog clear">
+    <div class="container blog clear">
         <h2><?php echo $dirhtml['name']; ?></h2>
         <?php 
             if (empty($dirhtml['type'])||@$_COOKIE['photo'.$dirhtml['id']]==$dirhtml['name']||isset($_SESSION['admin'])) {
@@ -137,7 +137,7 @@ $result = query("SELECT bbs_id,bbs_username,bbs_name,bbs_url,bbs_readcount,bbs_c
         }
         ?>
             <a href="add_photo.php?id=<?php echo $dirhtml['id']; ?>" title="">上传图片</a>
-    </section>
+    </div>
     
     <?php 
         require ROOT_PATH.'includes/footer.inc.php'; 

@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-13 20:42:13
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:18:20
+ * @Last Modified time: 2015-12-20 21:23:01
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -60,7 +60,6 @@ $result = query("SELECT bbs_id,bbs_fromuser,bbs_content,bbs_flower,bbs_date FROM
     <div class="container oh uz">
         <?php require ROOT_PATH.'includes/userzone.inc.php'; ?>
         <div class="main fr">
-            <section>
                 <h2>会员管理中心</h2>
                 <form id="delete" action="flower.php?action=delete" method="post" >
                 <table>
@@ -102,7 +101,6 @@ $result = query("SELECT bbs_id,bbs_fromuser,bbs_content,bbs_flower,bbs_date FROM
                 </form>
                 <?php //pager参数：t表示文本式分页，n表数字分页
                     pager('t'); ?>
-             </section>
         </div>
     </div>
     <script src="js/message.js"></script>

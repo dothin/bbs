@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-06 12:55:59
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-06 15:19:08
+ * @Last Modified time: 2015-12-20 21:21:03
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -44,11 +44,11 @@ if (isset($_GET['action']) && isset($_GET['active']) && $_GET['action'] == 'ok' 
     <?php 
         require ROOT_PATH.'includes/header.inc.php';
     ?>
-    <section class="container tc">
+    <div class="container tc">
         <h2>激活账户</h2>
         <p>点击右侧链接激活您的账户：
         <a href="active.php?action=ok&amp;active=<?php echo $_GET['active']; ?>" title=""><?php echo 'http://'.$_SERVER["HTTP_HOST"].'/'/*$_SERVER["PHP_SELF"]*/; ?>active.php?action=ok&amp;active=<?php echo $_GET['active']; ?></a></p>
-    </section>
+    </div>
     <?php 
         require ROOT_PATH.'includes/footer.inc.php'; 
     ?>

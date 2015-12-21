@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-06 16:54:05
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-17 23:40:32
+ * @Last Modified time: 2015-12-20 21:22:10
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -185,7 +185,7 @@ if (@$_GET['action'] == 'flower') {
     <?php 
         require ROOT_PATH.'includes/header.inc.php';
     ?>
-    <section class="container blog clear">
+    <div class="container blog clear">
         <h2>博友</h2>
         <?php 
             $html = array();
@@ -217,7 +217,7 @@ if (@$_GET['action'] == 'flower') {
             pager('t');
         ?>
         
-    </section>
+    </div>
     <div id="message" class="hide">
             <h2 class="ddd"><span id="tips">发送消息给：</span><span id="friend"></span></h2>
             <form class="form-horizontal" method="post" name="message" id="mform" action="blog.php?action=message">

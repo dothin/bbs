@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-03 21:32:17
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-19 21:10:04
+ * @Last Modified time: 2015-12-21 13:20:02
  */
 //设置编码
 header('Content-Type:text/html;charset=utf-8');
@@ -46,7 +46,12 @@ if (empty($message['count'])) {
 }else{
     $GLOBALS['message'] = '<strong style="color:orange">('.$message['count'].')</strong>';
 }
-
+//读取头像
+if (!!@$rows = fetch_array("SELECT bbs_photo FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}'")) {
+    $u_photo = array();
+    $u_photo['photo']=$rows['bbs_photo'];
+    $u_photo=html($u_photo);
+}
 //网站系统设置初始化
 //读取系统表
 if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_photo_num,bbs_hot_num,bbs_newuser_num,bbs_skin,bbs_string,bbs_post_time,bbs_repost_time,bbs_code,bbs_register,bbs_last_modify_date,bbs_modify_user FROM bbs_system WHERE  bbs_id=1 LIMIT 1")) {

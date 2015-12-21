@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-08 23:59:57
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-13 20:43:51
+ * @Last Modified time: 2015-12-20 21:24:18
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -80,8 +80,7 @@ if (isset($_GET['id'])) {
     ?>
     <div class="container oh uz">
         <?php require ROOT_PATH.'includes/userzone.inc.php'; ?>
-        <div class="main fr">
-            <section class="message-detail">
+        <div class="main fr message-detail">
                 <h2>短信详情中心</h2>
                 <dl>
                     <dt>发信人</dt>
@@ -93,7 +92,6 @@ if (isset($_GET['id'])) {
                     <dt>操作</dt>
                     <dd><input id="back" type="button" name="" value="返回"><input id="delete" type="button" name="<?php echo $html['id']; ?>" value="删除" ></dd>
                 </dl>
-             </section>
         </div>
     </div>
     <script src="js/message_detail.js"></script>

@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-18 23:03:47
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 00:40:33
+ * @Last Modified time: 2015-12-20 21:21:41
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -100,7 +100,7 @@ if (@$_GET['action'] == 'adddir') {
     <?php 
         require ROOT_PATH.'includes/header.inc.php';
     ?>
-    <section class="container blog clear">
+    <div class="container blog clear">
         <h2>添加相册</h2>
         <form class="form-horizontal" method="post" name="addphotodir" action="add_photo_dir.php?action=adddir">
             <div class="form-groups">
@@ -130,7 +130,7 @@ if (@$_GET['action'] == 'adddir') {
             </div>
             <div class="form-groups"><input type="submit" class="btn-blue" value="添加目录" ></div>
         </form>
-    </section>
+    </div>
     <script src="js/add_photo_dir.js"></script>
     <?php 
         require ROOT_PATH.'includes/footer.inc.php'; 

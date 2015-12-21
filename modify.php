@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-07 14:43:31
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 23:29:24
+ * @Last Modified time: 2015-12-20 23:34:00
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -122,7 +122,6 @@ if (isset($_COOKIE['username'])) {
     <div class="container oh uz">
         <?php require ROOT_PATH.'includes/userzone.inc.php'; ?>
         <div class="main fr">
-            <section>
                 <h2>会员管理中心</h2>
                 <form class="form-horizontal"  method="post" name="modify" action="?action=modify">
                     <div class="form-groups">
@@ -214,9 +213,8 @@ if (isset($_COOKIE['username'])) {
                             <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                         </div>
                     </div>
-                    <div class="form-groups"><input type="submit" class="btn-blue" value="保存" ></div>
+                    <div class="form-groups"><input type="submit" class="btn-primary" value="保存" ></div>
                 </form>
-            </section>
         </div>
     </div>
     <script src="js/modify.js"></script>

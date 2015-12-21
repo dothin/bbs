@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-19 16:29:50
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-19 18:48:23
+ * @Last Modified time: 2015-12-20 21:26:19
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -139,9 +139,8 @@ if (isset($_GET['id'])) {
     <?php 
         require ROOT_PATH.'includes/header.inc.php';
     ?>
-    <section class="container blog clear">
+    <div class="container blog clear">
         <h2>图片详情</h2>
-        
         <figure><img src="<?php echo $html['url']; ?>" alt="">
             <figcaption>
                 <h3>图片名称：<?php echo $html['name']; ?></h3>
@@ -154,8 +153,8 @@ if (isset($_GET['id'])) {
        <a href="show_photo.php?id=<?php echo $html['sid']; ?>" title="">返回</a>
        <?php echo $html['preid_html']; ?>
         <?php echo $html['nextid_html']; ?>
-    </section>
-    <section class="container">
+    </div>
+    <div class="container">
         <h2 class="ddd">评论情况</h2>
         <?php 
             //pager参数：t表示文本式分页，n表数字分页
@@ -185,7 +184,6 @@ if (isset($_GET['id'])) {
         ?>
         <section class="clear">
             <aside class="fl w340 mr10">
-                <section>
                     <h2>回帖用户</h2>
                     <figure>
                         <img src="<?php echo $html['photo']; ?>" alt="">
@@ -204,19 +202,18 @@ if (isset($_GET['id'])) {
                             </ul>
                         </figcaption>
                     </figure>
-                </section>
             </aside>
             <div class="fr w650">
-                <section>
+                <article>
                     <header>
                         <span  class="fr"><?php echo ($page-1)*$page_size+$i; ?>#</span><?php echo $html['username']; ?>|发表于：<?php echo $html['date']; ?>
                         <a href="javascript:;" name="re" title="回复<?php echo ($page-1)*$page_size+$i; ?>楼的<?php echo $html['username']; ?>">[回复]</a>
                     </header>
                     <section>
                         <h3><?php echo $html['title']; ?></h3>
-                        <article>
+                        <p>
                             <?php echo ubb($html['content']); ?> 
-                        </article>
+                        </p>
                         
                     </section>
                     <footer>
@@ -228,7 +225,7 @@ if (isset($_GET['id'])) {
                             }
                          ?>
                     </footer>
-                </section>
+                </article>
             </div>
         </section>
         <?php 
@@ -239,46 +236,46 @@ if (isset($_GET['id'])) {
             pager('t');
         ?>
 
-    </section>
+    </div>
     <hr>
     <?php if (isset($_COOKIE['username'])) {?>
-        <section id="re">
-            <form class="form-horizontal" method="post" name="post" action="?action=rephoto">
-                <input type="hidden" name="sid" value="<?php echo $html['id']; ?>">
-                <div class="form-groups">
-                    <label class="form-labels" for="type1" >标题：</label>
-                    <div class="controls">
-                        <input type="text" name="title" value="<?php echo $html['name']; ?>"
-                    </div>
+    <section id="re">
+        <form class="form-horizontal" method="post" name="post" action="?action=rephoto">
+            <input type="hidden" name="sid" value="<?php echo $html['id']; ?>">
+            <div class="form-groups">
+                <label class="form-labels" for="type1" >标题：</label>
+                <div class="controls">
+                    <input type="text" name="title" value="<?php echo $html['name']; ?>"
                 </div>
-                <div class="form-groups">
-                    <label class="form-labels" for="type1" >贴图：</label>
-                    <div class="controls" id="emoji">
-                        <a href="javascript:;">贴图一</a>
-                        <a href="javascript:;">贴图二</a>
-                        <a href="javascript:;">贴图三</a>
-                    </div>
+            </div>
+            <div class="form-groups">
+                <label class="form-labels" for="type1" >贴图：</label>
+                <div class="controls" id="emoji">
+                    <a href="javascript:;">贴图一</a>
+                    <a href="javascript:;">贴图二</a>
+                    <a href="javascript:;">贴图三</a>
                 </div>
-                <div class="form-groups relative">
-                    <label class="form-labels" for="type1" >内容：</label>
-                    <div class="controls">
-                        <?php include ROOT_PATH.'includes/ubb.inc.php'; ?>
-                        <textarea name="content" cols="46" rows="10"></textarea>
-                    </div>
+            </div>
+            <div class="form-groups relative">
+                <label class="form-labels" for="type1" >内容：</label>
+                <div class="controls">
+                    <?php include ROOT_PATH.'includes/ubb.inc.php'; ?>
+                    <textarea name="content" cols="46" rows="10"></textarea>
                 </div>
-                <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
-                    <label class="form-labels" for="" >验证码：</label>
-                    <div class="controls">
-                        <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
-                    </div>
+            </div>
+            <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
+                <label class="form-labels" for="" >验证码：</label>
+                <div class="controls">
+                    <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                 </div>
-                <div class="form-groups">
-                    <input type="submit" class="btn-blue" value="发表帖子" >
-                </div>
-                
-            </form>
-        </section>
-        <div id="emojis" class="emojis hide">
+            </div>
+            <div class="form-groups">
+                <input type="submit" class="btn-blue" value="发表帖子" >
+            </div>
+            
+        </form>
+    </section>
+    <div id="emojis" class="emojis hide">
         <a id="close"  href="javascript:;" title="close">X</a>
         <h3 class="h50 lh50">请选择表情</h3>
         <ul class="inline">

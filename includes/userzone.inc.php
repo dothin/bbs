@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-07 13:39:29
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-15 16:16:14
+ * @Last Modified time: 2015-12-20 21:28:03
  */
 //防止恶意调用
 if (!defined('IN_TG')) {
@@ -11,7 +11,6 @@ if (!defined('IN_TG')) {
 }
 ?>
 <aside class="side-bar fl">
-    <section>
         <h2>中心导航</h2>
         <dl>
             <dt>账号管理</dt>
@@ -25,5 +24,4 @@ if (!defined('IN_TG')) {
             <dd><a href="flower.php">查询花朵</a></dd>
             <dd><a href="">个人相册</a></dd>
         </dl>
-    </section>
 </aside>

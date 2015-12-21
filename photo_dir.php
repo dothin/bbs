@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-18 22:57:52
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-19 20:03:30
+ * @Last Modified time: 2015-12-20 21:26:29
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -64,7 +64,7 @@ $result = query("SELECT bbs_id,bbs_name,bbs_type,bbs_cover FROM bbs_photo_dir OR
     <?php 
         require ROOT_PATH.'includes/header.inc.php';
     ?>
-    <section class="container blog clear">
+    <div class="container blog clear">
         <h2>相册</h2>
         <?php 
             $html = array();
@@ -106,7 +106,7 @@ $result = query("SELECT bbs_id,bbs_name,bbs_type,bbs_cover FROM bbs_photo_dir OR
         <?php if (isset($_COOKIE['username']) && isset($_SESSION['admin'])) { ?>
             <a href="add_photo_dir.php" title="">添加目录</a>
         <?php } ?>
-    </section>
+    </div>
     
     <?php 
         require ROOT_PATH.'includes/footer.inc.php'; 

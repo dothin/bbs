@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-15 23:56:00
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-18 20:10:15
+ * @Last Modified time: 2015-12-20 21:23:53
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -152,7 +152,6 @@ if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_p
     <div class="container oh uz">
         <?php require ROOT_PATH.'includes/manage.inc.php'; ?>
         <div class="main fr">
-            <section>
                 <hgroup>
                     <h2>后台管理中心</h2>
                     <h3>最后修改时间：<?php echo $html['last_modify_date']; ?>,由<?php echo $html['modify_user']; ?>修改</h3>
@@ -238,7 +237,6 @@ if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_p
                     
                     <div class="form-groups"><input type="submit" class="btn-blue" value="修改设置" ></div>
                 </form>
-            </section>
         </div>
     </div>
     <script src="js/modify.js"></script>

@@ -2,7 +2,7 @@
 * @Author: gaohuabin
 * @Date:   2015-12-03 12:49:06
 * @Last Modified by:   gaohuabin
-* @Last Modified time: 2015-12-18 18:09:38
+* @Last Modified time: 2015-12-20 22:48:39
 */
 @charset "UTF-8";
 /* CSS reset */
@@ -244,20 +244,25 @@ input[type=text]:focus,input[type=password]:focus, textarea:focus {
 .controls input[type=text],
 .controls input[type=password]{ width:200px; height:33px;}
 .form-groups .controls .code{width:60px;}
-.btn-blue{padding:6px 30px;
+.btn-primary{
+    height:35px;
+    padding:0 30px;
     border-radius: 4px;
     color: #fff;
     font: 16px sans-serif;
-    margin-left:105px;
     border:0;
     cursor: pointer;
-    background-image: linear-gradient(#155aaa, #188eee);
+    border-color: #008b57;
+    background-color: #0DBE7D;
+    background-image: -webkit-linear-gradient(#0DBE7D, #00905b);
+    background-image: -o-linear-gradient(#0DBE7D, #00905b);
+    background-image: linear-gradient(#0DBE7D, #00905b);
     background-size: auto 200%;
     background-position: 0 100%;
     -webkit-transition: background-position  .3s;
     -o-transition: background-position  .3s;
     transition: background-position  .3s;}
-.btn-blue:hover{background-position: 0 0;}
+.btn-primary:hover{background-position: 0 0;}
 .radio{ width:60px; display:inline-block; cursor: pointer;}
 
 table {
