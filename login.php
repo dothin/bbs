@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-06 15:19:49
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-17 23:10:22
+ * @Last Modified time: 2015-12-21 22:00:18
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -87,7 +87,7 @@ if (@$_GET['action'] == 'login') {
                     <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                 </div>
             </div>
-            <div class="form-groups"><input type="submit" class="btn-blue" value="登录" ></div>
+            <div class="form-groups"><input type="submit" class="btn-primary" value="登录" ></div>
         </form>
     </div>
     <script src="js/login.js"></script>

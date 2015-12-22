@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2015-12-21 07:04:16
+-- Generation Time: 2015-12-22 06:36:53
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `bbs_article` (
   `bbs_last_modify_date` datetime NOT NULL COMMENT '最后修改时间',
   `bbs_date` datetime NOT NULL COMMENT '发帖时间',
   PRIMARY KEY (`bbs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
 
 --
 -- 转存表中的数据 `bbs_article`
@@ -51,7 +51,7 @@ INSERT INTO `bbs_article` (`bbs_id`, `bbs_reid`, `bbs_username`, `bbs_type`, `bb
 (4, 0, '石昊', 8, '我是荒天帝，你是谁', '李克强主持的上合总理会有啥讲究？\r\n探营世界互联网大会：乌镇一日街拍见闻  互联网大会专题\r\n银联发布官方移动支付 能否成功反击支付宝们\r\n银联或牵手Apple Pay  很难打败第三方支付  银联线下渠道有优势\r\n北京高院：薄谷开来与刘志军已被减刑至无期\r\n黄光裕获得两次改造积极分子 被建议再减刑一年\r\n天津港爆炸调查：官商勾连行为脱缰等是根源\r\n江苏全境遭雾霾袭城 官方:北方污染输送为主因\r\n环保部：一钢独大或一煤独大是华北空气污染主因\r\n中国第16集团军新规：亲兄弟禁分到同一战车', 5, 0, 0, '0000-00-00 00:00:00', '2015-12-14 21:50:53'),
 (5, 0, '石昊', 1, '发帖测试功能', '[size=24]字体大小[/size]\r\n[b]加粗[/b]\r\n[i]倾斜[/i]\r\n[u]下划线[/u]\r\n[s]删除线[/s]\r\n[color=#808000]颜色[/color]\r\n[url]http://www.baidu.com[/url]\r\n[email]1286513426@qq.com[/email][img]emoji/2/1.gif[/img]\r\n[flash]http://player.youku.com/player.php/sid/XMTQxMjAxMjg0NA==/v.swf[/flash]', 37, 0, 0, '0000-00-00 00:00:00', '2015-12-14 22:02:26'),
 (6, 0, '石昊', 2, '我是叶凡，我是叶天帝，你是石昊？', '我是叶凡，我是叶天帝，你是石昊？我是叶凡，我是叶天帝，你是石昊？[b]我是叶凡，我是叶天帝，你是石昊？我是叶凡，我是叶天帝，你是石昊？[/b][color=#f00]我是叶凡，我是叶天帝，你是石昊？我是叶凡，我是叶天帝，你是石昊？[/color][img]emoji/3/5.gif[/img][img]emoji/2/6.gif[/img][img]emoji/1/11.gif[/img]', 7, 0, 0, '0000-00-00 00:00:00', '2015-12-14 22:29:28'),
-(7, 0, '石昊', 4, '我我是叶天帝是叶凡，你是石昊？', '我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡[img]emoji/1/2.gif[/img][img]emoji/3/1.gif[/img][img]emoji/1/7.gif[/img][color=#f00]我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶[/color]', 258, 15, 1, '2015-12-15 17:19:40', '2015-12-14 22:30:23'),
+(7, 0, '石昊', 4, '我我是叶天帝是叶凡，你是石昊？', '我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡[img]emoji/1/2.gif[/img][img]emoji/3/1.gif[/img][img]emoji/1/7.gif[/img][color=#f00]我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶天帝是叶凡我我是叶[/color]', 324, 21, 1, '2015-12-15 17:19:40', '2015-12-14 22:30:23'),
 (8, 0, '石昊', 1, '很大发大水发大厦很大送货单等哈', '很大发大水发大厦很大送货单等哈很大发大水发大厦很大送货单等哈很大发大水发大厦很大送货单等哈', 39, 0, 0, '0000-00-00 00:00:00', '2015-12-14 22:30:44'),
 (9, 0, '石昊', 1, 'rerererererererererererererere', 'rererererererererererererererererererererererererererererererererererererererererererererererererere[img]emoji/2/2.gif[/img]', 28, 2, 0, '0000-00-00 00:00:00', '2015-12-14 22:31:02'),
 (15, 7, '路飞', 1, '我我是叶天帝是叶凡，你是石昊？', 'fdasfdsaf', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-15 00:18:40'),
@@ -103,7 +103,10 @@ INSERT INTO `bbs_article` (`bbs_id`, `bbs_reid`, `bbs_username`, `bbs_type`, `bb
 (61, 57, '石昊', 1, 'fdafdsafd', 'fdasf ', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-17 23:48:09'),
 (62, 0, '石日天', 1, '乐乐乐', '发大水发大厦[img]emoji/2/2.gif[/img]', 7, 0, 0, '0000-00-00 00:00:00', '2015-12-18 00:05:07'),
 (63, 0, '石昊', 7, '好打发多少', '范德萨发大厦[img]emoji/2/1.gif[/img]', 1, 0, 0, '0000-00-00 00:00:00', '2015-12-20 23:44:44'),
-(64, 0, '石昊', 1, '有好打发多少', '范德萨发大厦[img]emoji/3/1.gif[/img][img]emoji/2/2.gif[/img]', 1, 0, 0, '0000-00-00 00:00:00', '2015-12-20 23:50:13');
+(64, 0, '石昊', 1, '有好打发多少', '范德萨发大厦[img]emoji/3/1.gif[/img][img]emoji/2/2.gif[/img]', 1, 0, 0, '0000-00-00 00:00:00', '2015-12-20 23:50:13'),
+(65, 0, '石昊', 1, '我是石昊我是石昊', '[img]emoji/1/1.gif[/img][img]emoji/1/2.gif[/img][img]emoji/1/3.gif[/img][img]emoji/2/2.gif[/img][img]emoji/2/3.gif[/img]', 26, 4, 0, '0000-00-00 00:00:00', '2015-12-21 21:40:22'),
+(66, 65, '石昊', 1, '我是石昊我是石昊', '爱上范德萨发大厦', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-22 00:16:34'),
+(67, 65, '石昊', 1, '我是石昊我是石昊', '沙发也是我[img]emoji/2/2.gif[/img]', 0, 0, 0, '0000-00-00 00:00:00', '2015-12-22 13:35:29');
 
 -- --------------------------------------------------------
 
@@ -257,21 +260,21 @@ CREATE TABLE IF NOT EXISTS `bbs_photo` (
   `bbs_name` varchar(20) NOT NULL COMMENT '图片名称',
   `bbs_url` varchar(200) NOT NULL COMMENT '图片地址',
   `bbs_content` varchar(200) DEFAULT NULL COMMENT '图片描述',
-  `bbs_sid` mediumint(8) unsigned NOT NULL COMMENT '图片所在目录',
+  `bbs_fid` mediumint(8) unsigned NOT NULL COMMENT '图片所在目录',
   `bbs_username` varchar(20) NOT NULL COMMENT '上传者',
   `bbs_readcount` mediumint(8) NOT NULL DEFAULT '0' COMMENT '图片阅读量',
   `bbs_commentcount` mediumint(8) NOT NULL DEFAULT '0' COMMENT '图片评论量',
   `bbs_date` datetime NOT NULL COMMENT '图片创建时间',
   PRIMARY KEY (`bbs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- 转存表中的数据 `bbs_photo`
 --
 
-INSERT INTO `bbs_photo` (`bbs_id`, `bbs_name`, `bbs_url`, `bbs_content`, `bbs_sid`, `bbs_username`, `bbs_readcount`, `bbs_commentcount`, `bbs_date`) VALUES
+INSERT INTO `bbs_photo` (`bbs_id`, `bbs_name`, `bbs_url`, `bbs_content`, `bbs_fid`, `bbs_username`, `bbs_readcount`, `bbs_commentcount`, `bbs_date`) VALUES
 (1, '哈达哈达', 'photo/1450455815/1450509252.png', '', 4, '石昊', 5, 0, '2015-12-19 15:14:29'),
-(2, '图片一', 'photo/1450455815/1450509552.png', '', 4, '石昊', 13, 0, '2015-12-19 15:19:33'),
+(2, '图片一', 'photo/1450455815/1450509552.png', '', 4, '石昊', 15, 1, '2015-12-19 15:19:33'),
 (3, '好打发多少', 'photo/1450501251/1450511593.jpg', '发送佛挡杀佛大发送佛挡杀佛大发送佛挡杀佛大发送佛挡杀佛大发送佛挡杀佛大', 8, '石昊', 1, 0, '2015-12-19 15:53:27'),
 (4, '发送佛挡杀佛大发送佛挡杀佛大', 'photo/1450501251/1450511617.jpg', '发送佛挡杀佛大发送佛挡杀佛大发送佛挡杀佛大发送佛挡杀佛大发送佛挡杀佛大发送佛挡杀佛大', 8, '石昊', 0, 0, '2015-12-19 15:53:42'),
 (5, '很大送货单', 'photo/1450501251/1450511637.jpg', '发送佛挡杀佛', 8, '石昊', 0, 0, '2015-12-19 15:54:01'),
@@ -282,8 +285,9 @@ INSERT INTO `bbs_photo` (`bbs_id`, `bbs_name`, `bbs_url`, `bbs_content`, `bbs_si
 (10, '石昊石昊石昊石昊石昊', 'photo/1450501251/1450511815.jpg', '石昊石昊石昊石昊石昊石昊石昊石昊石昊石昊石昊石昊石昊', 8, '石昊', 12, 0, '2015-12-19 15:57:00'),
 (11, '石日天石日天石日天', 'photo/1450501251/1450511828.jpg', '石日天石日天石日天石日天石日天', 8, '石昊', 11, 0, '2015-12-19 15:57:15'),
 (12, '佛挡杀佛的', 'photo/1450501251/1450513248.jpg', '发送打范德萨', 8, '石昊', 83, 9, '2015-12-19 16:20:53'),
-(14, '哈哈送货单上', 'photo/1450501251/1450522625.jpg', '哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上', 8, '石昊', 1, 0, '2015-12-19 18:57:16'),
-(20, '发货的', 'photo/1450455655/1450539110.jpg', '佛挡杀佛的', 2, '石昊', 0, 0, '2015-12-19 23:31:56');
+(14, '哈哈送货单上', 'photo/1450501251/1450522625.jpg', '哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上哈哈送货单上', 8, '石昊', 2, 0, '2015-12-19 18:57:16'),
+(20, '发货的', 'photo/1450455655/1450539110.jpg', '佛挡杀佛的', 2, '石昊', 0, 0, '2015-12-19 23:31:56'),
+(21, '发大水发大厦', 'photo/1450501251/1450714470.png', '', 8, '石昊', 0, 0, '2015-12-22 00:14:33');
 
 -- --------------------------------------------------------
 
@@ -295,17 +299,17 @@ CREATE TABLE IF NOT EXISTS `bbs_photo_comment` (
   `bbs_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '图片评论ID',
   `bbs_title` varchar(20) NOT NULL COMMENT '评论标题',
   `bbs_content` text NOT NULL COMMENT '评论内容',
-  `bbs_sid` mediumint(8) unsigned NOT NULL COMMENT '图片ID',
+  `bbs_fid` mediumint(8) unsigned NOT NULL COMMENT '图片ID',
   `bbs_username` varchar(20) NOT NULL COMMENT '评论者',
   `bbs_date` datetime NOT NULL COMMENT '评论时间',
   PRIMARY KEY (`bbs_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `bbs_photo_comment`
 --
 
-INSERT INTO `bbs_photo_comment` (`bbs_id`, `bbs_title`, `bbs_content`, `bbs_sid`, `bbs_username`, `bbs_date`) VALUES
+INSERT INTO `bbs_photo_comment` (`bbs_id`, `bbs_title`, `bbs_content`, `bbs_fid`, `bbs_username`, `bbs_date`) VALUES
 (1, '佛挡杀佛的', '[img]emoji/3/2.gif[/img][img]emoji/2/8.gif[/img]', 12, '石昊', '2015-12-19 17:06:54'),
 (2, '佛挡杀佛的', '很大发顺丰的[img]emoji/3/1.gif[/img]', 12, '石昊', '2015-12-19 17:08:00'),
 (3, '佛挡杀佛的', '[img]emoji/1/2.gif[/img][img]emoji/1/6.gif[/img]', 12, '石昊', '2015-12-19 17:08:08'),
@@ -314,7 +318,8 @@ INSERT INTO `bbs_photo_comment` (`bbs_id`, `bbs_title`, `bbs_content`, `bbs_sid`
 (6, '佛挡杀佛的', '[img]emoji/1/7.gif[/img][img]emoji/1/11.gif[/img]', 12, '石昊', '2015-12-19 17:08:25'),
 (7, '佛挡杀佛的', '[img]emoji/1/2.gif[/img][img]emoji/1/8.gif[/img]', 12, '石昊', '2015-12-19 17:08:31'),
 (8, '佛挡杀佛的', '[img]emoji/3/2.gif[/img][img]emoji/1/2.gif[/img]', 12, '石昊', '2015-12-19 17:08:37'),
-(9, '佛挡杀佛的', '[img]emoji/3/2.gif[/img][img]emoji/3/2.gif[/img][img]emoji/3/2.gif[/img]', 12, '石日天', '2015-12-19 17:21:56');
+(9, '佛挡杀佛的', '[img]emoji/3/2.gif[/img][img]emoji/3/2.gif[/img][img]emoji/3/2.gif[/img]', 12, '石日天', '2015-12-19 17:21:56'),
+(10, '图片一', '发大水发大厦', 2, '石昊', '2015-12-22 00:13:49');
 
 -- --------------------------------------------------------
 
@@ -346,6 +351,35 @@ INSERT INTO `bbs_photo_dir` (`bbs_id`, `bbs_name`, `bbs_type`, `bbs_password`, `
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `bbs_re_article`
+--
+
+CREATE TABLE IF NOT EXISTS `bbs_re_article` (
+  `bbs_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '楼中楼回帖ID',
+  `bbs_fid` mediumint(8) unsigned NOT NULL COMMENT '回复楼层的帖子ID',
+  `bbs_username` varchar(20) NOT NULL COMMENT '回帖用户',
+  `bbs_content` text NOT NULL COMMENT '内容',
+  `bbs_date` datetime NOT NULL COMMENT '时间',
+  PRIMARY KEY (`bbs_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+
+--
+-- 转存表中的数据 `bbs_re_article`
+--
+
+INSERT INTO `bbs_re_article` (`bbs_id`, `bbs_fid`, `bbs_username`, `bbs_content`, `bbs_date`) VALUES
+(12, 15, '石昊', '搞活动是搞活动滑菇烩蛋黄更画江湖', '2015-12-22 12:23:23'),
+(13, 16, '石昊', '供货商的搞活动三个', '2015-12-22 12:24:01'),
+(14, 15, '石昊', '好好干发动机和高房价和高科技和可好好干发动机和高房价和高科技和可好好干发动机和高房价和高科技和可好好干发动机和高房价和高科技和可好好干发动机和高房价和高科技和可好好干发动机和高房价和高科技和可好好干发动机和高房价和高科技和可好好干发动机和高房价和高科技和可', '2015-12-22 12:24:20'),
+(15, 15, '日天', '过得很好滑菇烩蛋黄更更健康公积金', '2015-12-22 12:26:55'),
+(16, 66, '石昊', '过的痕迹解放军脚后跟过的痕迹解放军脚后跟过的痕迹解放军脚后跟过的痕迹解放军脚后跟', '2015-12-22 12:33:04'),
+(17, 15, '石昊', '@日天 你是傻逼', '2015-12-22 13:24:31'),
+(18, 15, '日天', '@石昊[楼主]你才是傻逼', '2015-12-22 13:28:48'),
+(19, 66, '石昊', '@石昊我自己回复自己', '2015-12-22 13:33:46');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `bbs_system`
 --
 
@@ -373,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `bbs_system` (
 --
 
 INSERT INTO `bbs_system` (`bbs_id`, `bbs_webname`, `bbs_article_num`, `bbs_blog_num`, `bbs_photo_num`, `bbs_hot_num`, `bbs_newuser_num`, `bbs_skin`, `bbs_string`, `bbs_post_time`, `bbs_repost_time`, `bbs_code`, `bbs_register`, `bbs_last_modify_date`, `bbs_modify_user`) VALUES
-(1, '毕业设计--论坛', '10', '12', '4', '10', '5', 1, '傻逼|日龙包', 60, 30, 0, 1, '2015-12-21 13:55:35', '石昊');
+(1, '毕业设计--论坛', '10', '12', '4', '10', '5', 1, '傻逼|日龙包', 60, 15, 0, 1, '2015-12-22 12:21:52', '石昊');
 
 -- --------------------------------------------------------
 
@@ -411,7 +445,7 @@ CREATE TABLE IF NOT EXISTS `bbs_users` (
 --
 
 INSERT INTO `bbs_users` (`bbs_id`, `bbs_uniqid`, `bbs_active`, `bbs_username`, `bbs_password`, `bbs_question`, `bbs_answer`, `bbs_sex`, `bbs_photo`, `bbs_level`, `bbs_email`, `bbs_qq`, `bbs_url`, `bbs_switch`, `bbs_signature`, `bbs_post_time`, `bbs_repost_time`, `bbs_reg_time`, `bbs_last_time`, `bbs_last_ip`, `bbs_login_count`) VALUES
-(1, '2496826aa72b5ddb242bb2f1c51619d942be8fba', '', '石昊', 'b216fd63e5f3a5ef423bbe9852426a51f7486ac6', '石昊', 'f35324f1c2398e6d197c2ddcd4c9de369d1a9ff4', '男', 'images/photo/photo (8).jpg', 1, '123456789@qq.com', '45645633', 'http://www.globcn.com', 1, '我是石昊，我是荒天帝', '1450626613', '1450367289', '2015-12-06 14:58:06', '2015-12-21 13:55:18', '127.0.0.1', 47),
+(1, '2496826aa72b5ddb242bb2f1c51619d942be8fba', '', '石昊', 'b216fd63e5f3a5ef423bbe9852426a51f7486ac6', '石昊', 'f35324f1c2398e6d197c2ddcd4c9de369d1a9ff4', '男', 'images/photo/photo (2).jpg', 1, '434334@qq.com', '', 'http://www.baidu.com', 0, '', '1450705222', '1450762529', '2015-12-06 14:58:06', '2015-12-22 12:16:45', '127.0.0.1', 50),
 (33, 'df1b620362eaa3c0aa77761a380da117498f94c0', '', '叶凡', 'f475e7dc81e05984be070af842846137464c6d1b', '叶凡', 'c01b75e6393e2bf0c104112b889ffe585084336e', '男', 'images/photo/photo (1).jpg', 0, '432432@qq.com', '', '', 0, NULL, '0', '0', '2015-12-06 15:04:19', '2015-12-06 15:04:19', '127.0.0.1', 0),
 (34, 'f32e1f4459618f7cf5e98bb01ed8d2f43c4fcefc', '', '月婵', '73406872c52a4736b6db379061332ffaae7bbf98', '月婵', '6309114c6e6048304a66ffe1409eb071281eef24', '女', 'images/photo/photo (1).jpg', 0, '432432@qq.com', '', '', 0, NULL, '0', '0', '2015-12-06 15:07:33', '2015-12-06 15:07:33', '127.0.0.1', 0),
 (35, '33656fdc3635104d9890a67634e1283a6bdacc1e', '', '黑皇', 'a68cd2408f1cdf0b975e2f95b7b26a9f5ac7582a', '黑皇', 'eccea58dd05464a24f38fdeb4f9a2a32e1ed2f4a', '男', 'images/photo/photo (1).jpg', 0, '432432@qq.com', '434343433', '', 0, NULL, '0', '0', '2015-12-06 15:10:59', '2015-12-06 15:10:59', '127.0.0.1', 0),
@@ -432,9 +466,8 @@ INSERT INTO `bbs_users` (`bbs_id`, `bbs_uniqid`, `bbs_active`, `bbs_username`, `
 (51, 'f95d39788bf8b4d312527f38874e09d4baf9368f', '', '佐助', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123456', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '男', 'images/photo/photo (4).jpg', 0, '432432@qq.com', '434343433', 'http://www.blogcn.com', 0, NULL, '0', '0', '2015-12-13 22:02:55', '2015-12-15 00:22:34', '127.0.0.1', 1),
 (52, 'd1dd4af30cb2f814237c911381967cdcaff4cfcd', '', '石日天', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123', '51eac6b471a284d3341d8c0c63d0f1a286262a18', '男', 'images/photo/photo (2).jpg', 0, '432432@qq.com', '434343433', 'http://www.baidu.com', 0, NULL, '1450368307', '1450367176', '2015-12-13 22:25:39', '2015-12-19 23:42:44', '127.0.0.1', 20),
 (53, '94b596a93c3dd12b7fde5ccaea7bfbe244985627', '', '赵日天', '7c4a8d09ca3762af61e59520943dc26494f8941b', '132', 'a8803f9ed887f2bdaff770a533cf2f251187a94f', '男', 'images/photo/photo (2).jpg', 0, '432432@qq.com', '434343433', 'http://www.baidu.com', 0, NULL, '0', '0', '2015-12-16 13:56:42', '2015-12-16 13:56:42', '127.0.0.1', 0),
-(54, '60193876905de049ffff75b8fb6f5cdea8b3a36b', '', '曹操', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123', 'ffa1bf95b83ed878c70b031085efc971d074363c', '男', 'images/photo/photo (1).jpg', 0, '432432@qq.com', '', '', 0, NULL, '0', '0', '2015-12-17 00:07:07', '2015-12-17 00:07:07', '127.0.0.1', 0),
-(55, '1e237792e8bd592974febe8cdb58423a4ee3169b', '', '摇光', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123', '7c4a8d09ca3762af61e59520943dc26494f8941b', '男', 'images/photo/photo (1).jpg', 0, '43143213@qq.com', '', '', 0, NULL, '0', '0', '2015-12-18 12:50:42', '2015-12-18 12:50:42', '127.0.0.1', 0),
-(57, 'db50c7ebf6b2a40c207d8b863cc5156c807e7ac2', '664b0e7b9a1e2376f2fd77ec7a26d67a3dad195c', '日天', '7c4a8d09ca3762af61e59520943dc26494f8941b', '发的发大厦', '2a96abcf2654e6c7419c65a883ddd1520cca1cc5', '男', 'images/photo/photo (1).jpg', 0, '434334@qq.com', '', '', 0, NULL, '0', '0', '2015-12-18 20:44:35', '2015-12-18 20:44:35', '127.0.0.1', 0);
+(55, '1e237792e8bd592974febe8cdb58423a4ee3169b', '', '摇光', '7c4a8d09ca3762af61e59520943dc26494f8941b', '123', '7c4a8d09ca3762af61e59520943dc26494f8941b', '男', 'images/photo/photo (1).jpg', 0, '43143213@qq.com', '', '', 0, NULL, '0', '1450757769', '2015-12-18 12:50:42', '2015-12-22 12:13:55', '127.0.0.1', 1),
+(57, 'db50c7ebf6b2a40c207d8b863cc5156c807e7ac2', '', '日天', '7c4a8d09ca3762af61e59520943dc26494f8941b', '发的发大厦', '2a96abcf2654e6c7419c65a883ddd1520cca1cc5', '男', 'images/photo/photo (8).jpg', 0, '434334@qq.com', '', 'http://www.baidu.com', 1, '我是石日天', '0', '1450762128', '2015-12-18 20:44:35', '2015-12-22 12:26:47', '127.0.0.1', 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

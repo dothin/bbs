@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-14 21:11:03
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:19:10
+ * @Last Modified time: 2015-12-22 13:35:08
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -100,6 +100,57 @@ if (@$_GET['action']=='repost') {
         alert('非法登录');
     }
 }
+//处理楼中回帖
+if (@$_GET['action']=='re_art') {
+    if (!!$rows=fetch_array("SELECT bbs_uniqid,bbs_repost_time FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}' LIMIt 1")) {
+        //为了防止cookie伪造，要比对一下唯一标识符uniqid
+        uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
+        //限制回帖时间
+        limit_time('回复',time(),$rows['bbs_repost_time'],$system['repost_time']);
+        //创建空数组，用来存放提交的合法数据
+        $clean = array();
+        $clean['fid'] =mysql_real_escape_string($_POST['fid']);
+        $clean['reid'] =mysql_real_escape_string($_POST['reid']);
+        $clean['username'] =mysql_real_escape_string($_COOKIE['username']);
+        $clean['content'] =mysql_real_escape_string($_POST['content']);
+        //写入数据库
+        query("INSERT INTO bbs_re_article (
+                                        bbs_fid,
+                                        bbs_username,
+                                        bbs_content,
+                                        bbs_date
+                                        )
+                                VALUES(
+                                        '{$clean['fid']}',
+                                        '{$clean['username']}',
+                                        '{$clean['content']}',
+                                        NOW()
+                                        )
+        ");
+
+        if (affected_rows() ==1) {
+            //setcookie('article_name',time());
+            $clean['time']=time();
+            query("UPDATE bbs_users SET bbs_repost_time='{$clean['time']}' WHERE bbs_username='{$_COOKIE['username']}'");
+            //累积评论
+            query("UPDATE bbs_article SET bbs_commentcount=bbs_commentcount+1 WHERE bbs_reid=0 AND bbs_id='{$clean['reid']}'");
+            //关闭数据库
+            close();
+            //清除session
+            //session_destroy();
+            //跳转到首页
+            location('恭喜您回帖成功！','article.php?id='.$clean['reid']);
+        }else{
+            //关闭数据库
+            close();
+            //session_destroy();
+            //跳转到首页
+            alert('发帖失败');
+        }
+    }else{
+        alert('非法登录');
+    }
+}
 //读出数据
 if (isset($_GET['id'])) {
     //判断主题帖子是否存在,回帖不算
@@ -144,9 +195,9 @@ if (isset($_GET['id'])) {
                 $html['last_modify_date_string'] = '本帖于'.$html['last_modify_date'].'由'.$html['username_subject'].'最后修改过！';
             }
             //回复楼主
-            if (@$_COOKIE['username']) {
+            /*if (@$_COOKIE['username']) {
                 $html['re']='<a href="javascript:;" name="re" title="回复楼主'.$html['username_subject'].'">[回复]</a>';
-            }
+            }*/
             //个性签名
             if ($html['switch'] == 1) {
                 $html['signature_html'] = '<p>个性签名：'.$html['signature'].'</p>';
@@ -158,7 +209,7 @@ if (isset($_GET['id'])) {
             pager_param("SELECT bbs_id FROM bbs_article WHERE bbs_reid='{$html['reid']}'",8);
             //从数据库提取数据
             //每次while循环的数据是读取的结果集，并不是去重新查询数据库
-            $result = query("SELECT bbs_username,bbs_title,bbs_type,bbs_content,bbs_date FROM bbs_article WHERE bbs_reid='{$html['reid']}' ORDER BY bbs_date ASC LIMIt $page_num,$page_size");
+            $result = query("SELECT bbs_id,bbs_username,bbs_title,bbs_type,bbs_content,bbs_date FROM bbs_article WHERE bbs_reid='{$html['reid']}' ORDER BY bbs_date ASC LIMIt $page_num,$page_size");
         }else{
             //这个用户已被删除
         };
@@ -227,7 +278,7 @@ if (isset($_GET['id'])) {
                         }
                      ?>
                     1#</span><?php echo $html['username_subject']; ?>|发表于：<?php echo $html['date']; ?>
-                    <?php echo @$html['re']; ?><?php echo @$html['subject_modify']; ?>
+                    <?php echo @$html['subject_modify']; ?>
                 </header>
                 <section>
                     <h3><?php echo $html['title']; ?></h3>
@@ -254,6 +305,7 @@ if (isset($_GET['id'])) {
             pager('t');
             $i=2;
             while ( !!$rows = fetch_array_list($result,MYSQL_ASSOC)) {
+                $html['id'] = $rows['bbs_id'];
                 $html['username'] = $rows['bbs_username'];
                 $html['title'] = $rows['bbs_title'];
                 $html['type'] = $rows['bbs_type'];
@@ -287,8 +339,10 @@ if (isset($_GET['id'])) {
             }else{
 
             }
+            //每次while循环的数据是读取的结果集，并不是去重新查询数据库
+            $result_re = query("SELECT bbs_username,bbs_content,bbs_date FROM bbs_re_article WHERE bbs_fid='{$html['id']}'");
         ?>
-        <section class="clear">
+        <section class="clear ">
             <aside class="fl w340 mr10">
                 <h2>回帖用户</h2>
                 <figure>
@@ -312,16 +366,15 @@ if (isset($_GET['id'])) {
             <div class="fr w650">
                 <article>
                     <header>
-                        <span  class="fr"><?php echo ($page-1)*$page_size+$i; ?>#</span><?php echo $html['username']; ?>|发表于：<?php echo $html['date']; ?>
-                        <a href="javascript:;" name="re" title="回复<?php echo ($page-1)*$page_size+$i; ?>楼的<?php echo $html['username']; ?>">[回复]</a>
+                        <span  class="fr"><?php echo ($page-1)*$page_size+$i; ?>#</span><?php echo $html['username_html']; ?>|发表于：<?php echo $html['date']; ?>
                     </header>
                     <section>
-                        <h3><?php echo $html['title']; ?></h3>
+                        <h3 data-name="<?php echo $html['username_html']; ?>"><?php echo $html['title']; ?></h3>
                         <span>类型：<?php echo $html['type']; ?></span>
-                        <p>
+                        <article>
                             <?php echo ubb($html['content']); ?> 
-                        </p>
-                        
+                        </article>
+                        <a href="javascript:;" name="re" title="回复<?php echo $html['username']; ?>">[回复]</a>
                     </section>
                     <footer>
                         <?php 
@@ -332,8 +385,43 @@ if (isset($_GET['id'])) {
                          ?>
                     </footer>
                 </article>
+                <article>
+                    <?php 
+                         //拿id去查回复信息
+                        while ( !!$rows = fetch_array_list($result_re,MYSQL_ASSOC)) {
+                            //提取用户信息
+                            $htmlre['username']=$rows['bbs_username'];
+                            $htmlre['content']=$rows['bbs_content'];
+                            $htmlre['date']=$rows['bbs_date'];
+                            $htmlre = html($htmlre);
+                            if ($htmlre['username'] == $html['username_subject']) {
+                                $htmlre['username_html'] =$htmlre['username'].'[楼主]';
+                            }else{
+                                $htmlre['username_html'] =$htmlre['username'];
+                            }
+                        ?>
+                        <section>
+                            <h3 data-name="<?php echo $htmlre['username_html']; ?>"><?php echo $htmlre['username_html']; ?></h3>
+                            <span>时间：<?php echo $htmlre['date']; ?></span>
+                            <article>
+                                <?php echo ubb($htmlre['content']); ?> 
+                            </article>
+                            <a href="javascript:;" name="re" title="回复<?php echo $htmlre['username_html']; ?>">[回复]</a>
+                        </section>
+                     <?php
+                        }
+                     ?>
+                </article>
+                <form class="re_art hide" action="article.php?action=re_art" method="post" >
+                    <!-- reid主题id   id回帖id -->
+                    <input type="hidden" name="reid" value="<?php echo $html['reid']; ?> ">
+                    <input type="hidden" name="fid" value="<?php echo $html['id']; ?> ">
+                     <textarea name="content" cols="46" rows="5"></textarea>
+                     <input type="submit" class="btn-primary" name="" value="回复">
+                 </form>
             </div>
         </section>
+        <hr>
         <?php 
                 $i++;
             }
@@ -342,10 +430,20 @@ if (isset($_GET['id'])) {
             pager('t');
         ?>
         <script>
-            //回复楼层
+            //回复楼中楼
             var aRe = document.getElementsByName('re');
+            var aReArt = document.querySelectorAll('.re_art');
             var aLen = aRe.length;
-            for (var i = 0; i < aLen; i++) {
+            for (var i = 0; i < aLen; i++) {                
+                aRe[i].onclick=function(){
+                    for (var i = 0; i < aReArt.length; i++) {
+                        aReArt[i].style.display = 'none';
+                    };
+                    this.parentNode.parentNode.parentNode.getElementsByTagName('form')[0].style.display = 'block';
+                    this.parentNode.parentNode.parentNode.getElementsByTagName('form')[0].content.value='@'+this.parentNode.getElementsByTagName('h3')[0].dataset.name;
+                }
+            };
+            /*for (var i = 0; i < aLen; i++) {
                 aRe[i].onclick = function(){
                     if (document.getElementById('ubb') == null) {
                         alert('请先登录再进行回复');
@@ -354,7 +452,7 @@ if (isset($_GET['id'])) {
                     this.href='#re';
                     document.getElementsByName('post')[0].title.value = this.title;
                 }
-            };
+            };*/
         </script>
         <hr>
         <?php if (isset($_COOKIE['username'])) {?>
@@ -390,7 +488,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <div class="form-groups">
-                    <input type="submit" class="btn-blue" value="发表帖子" >
+                    <input type="submit" class="btn-primary" value="发表帖子" >
                 </div>
                 
             </form>

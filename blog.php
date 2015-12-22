@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-06 16:54:05
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:22:10
+ * @Last Modified time: 2015-12-22 13:31:36
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -235,7 +235,7 @@ if (@$_GET['action'] == 'flower') {
                     </div>
                 </div>
                 <div class="form-groups">
-                    <input type="submit" class="btn-blue" value="发送" >
+                    <input type="submit" class="btn-primary" value="发送" >
                 </div>
             </form>
         </div>

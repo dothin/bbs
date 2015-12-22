@@ -2,7 +2,7 @@
 * @Author: gaohuabin
 * @Date:   2015-12-03 12:49:06
 * @Last Modified by:   gaohuabin
-* @Last Modified time: 2015-12-20 22:48:39
+* @Last Modified time: 2015-12-22 13:30:48
 */
 @charset "UTF-8";
 /* CSS reset */
@@ -251,6 +251,7 @@ input[type=text]:focus,input[type=password]:focus, textarea:focus {
     color: #fff;
     font: 16px sans-serif;
     border:0;
+    margin-left:105px;
     cursor: pointer;
     border-color: #008b57;
     background-color: #0DBE7D;
@@ -263,7 +264,7 @@ input[type=text]:focus,input[type=password]:focus, textarea:focus {
     -o-transition: background-position  .3s;
     transition: background-position  .3s;}
 .btn-primary:hover{background-position: 0 0;}
-.radio{ width:60px; display:inline-block; cursor: pointer;}
+.radio{ min-width:60px; display:inline-block; cursor: pointer;}
 
 table {
     font-family: verdana,arial,sans-serif;

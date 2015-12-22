@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-18 23:03:47
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:21:41
+ * @Last Modified time: 2015-12-22 13:31:14
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -128,7 +128,7 @@ if (@$_GET['action'] == 'adddir') {
                     <textarea name="content" cols="46" rows="10"></textarea>
                 </div>
             </div>
-            <div class="form-groups"><input type="submit" class="btn-blue" value="添加目录" ></div>
+            <div class="form-groups"><input type="submit" class="btn-primary" value="添加目录" ></div>
         </form>
     </div>
     <script src="js/add_photo_dir.js"></script>

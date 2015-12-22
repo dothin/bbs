@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-18 21:30:40
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:27:33
+ * @Last Modified time: 2015-12-21 22:53:54
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -58,7 +58,7 @@ if (@$_GET['action'] == 'quit'&&$_GET['id']) {
 //分页模块
 global $page_size,$page_num;
 //第一个参数：根据什么字段查询数据，第二个参数：设置每页显示多少条数据
-pager_param("SELECT bbs_id FROM bbs_users",10);
+pager_param("SELECT bbs_id FROM bbs_users WHERE bbs_level=1",10);
 //从数据库提取数据
 //每次while循环的数据是读取的结果集，并不是去重新查询数据库
 $result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bbs_last_time FROM bbs_users WHERE bbs_level=1 ORDER BY bbs_reg_time DESC LIMIt $page_num,$page_size");
@@ -81,16 +81,16 @@ $result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bb
                 <h2>会员列表中心</h2>
                 <form class="form-horizontal" action="?action=add" method="post" >
                     <input style="height:30px;" type="text" name="manage" value="">
-                    <input class="btn-blue" type="submit" name="add" value="添加">
+                    <input class="btn-primary" type="submit" name="add" value="添加">
                 </form>
                 <form action="user_list.php?action=" method="post">
                     <table>
                         <thead>
                             <tr>
                                 <th width="5%">ID</th>
-                                <th width="20%">会员名</th>
+                                <th width="15%">会员名</th>
                                 <th width="20%">邮件</th>
-                                <th width="10%">注册时间</th>
+                                <th width="15%">注册时间</th>
                                 <th width="10%">激活状态</th>
                                 <th width="15%">最后登录时间</th>
                                 <th width="20%">操作</th>

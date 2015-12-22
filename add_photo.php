@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-19 13:02:52
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:21:31
+ * @Last Modified time: 2015-12-22 13:31:09
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -97,14 +97,14 @@ if (@$_GET['action']=='addphoto') {
         $clean['name']=mysql_real_escape_string(check_dir_name($_POST['name'],2,20));
         $clean['url']=mysql_real_escape_string(check_photo_url($_POST['url']));
         $clean['content']=mysql_real_escape_string($_POST['content']);
-        $clean['sid']=mysql_real_escape_string($_POST['sid']);
+        $clean['fid']=mysql_real_escape_string($_POST['fid']);
 
         //写入数据库
         query("INSERT INTO bbs_photo (
                                     bbs_name,
                                     bbs_url,
                                     bbs_content,
-                                    bbs_sid,
+                                    bbs_fid,
                                     bbs_username,
                                     bbs_date
                                     )
@@ -112,7 +112,7 @@ if (@$_GET['action']=='addphoto') {
                                     '{$clean['name']}',
                                     '{$clean['url']}',
                                     '{$clean['content']}',
-                                    '{$clean['sid']}',
+                                    '{$clean['fid']}',
                                     '{$_COOKIE['username']}',
                                     NOW()
                                 )
@@ -120,7 +120,7 @@ if (@$_GET['action']=='addphoto') {
         if (affected_rows()==1) {
             //关闭数据库
             close();
-            location('图片添加成功！','show_photo.php?id='.$clean['sid']);
+            location('图片添加成功！','show_photo.php?id='.$clean['fid']);
         }else{
             close();
             alert('图片添加失败');
@@ -145,7 +145,7 @@ if (@$_GET['action']=='addphoto') {
     <div class="container blog clear">
         <h2>上传图片</h2>
         <form class="form-horizontal" method="post" name="addphotodir" action="add_photo.php?action=addphoto&id=<?php echo $html['id']; ?>">
-            <input type="hidden" name="sid" value="<?php echo $html['id']; ?>">
+            <input type="hidden" name="fid" value="<?php echo $html['id']; ?>">
             <div class="form-groups">
                 <label class="form-labels" for="" >图片名称</label>
                 <div class="controls">
@@ -164,7 +164,7 @@ if (@$_GET['action']=='addphoto') {
                     <textarea name="content" cols="46" rows="10"></textarea>
                 </div>
             </div>
-            <div class="form-groups"><input type="submit" class="btn-blue" value="上传图片" ></div>
+            <div class="form-groups"><input type="submit" class="btn-primary" value="上传图片" ></div>
         </form>
     </div>
     <div id="addphotos" class="photos hide">

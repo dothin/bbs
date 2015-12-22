@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-18 20:26:45
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:27:24
+ * @Last Modified time: 2015-12-21 22:56:27
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -40,7 +40,7 @@ global $page_size,$page_num;
 pager_param("SELECT bbs_id FROM bbs_users",10);
 //从数据库提取数据
 //每次while循环的数据是读取的结果集，并不是去重新查询数据库
-$result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bbs_last_time FROM bbs_users ORDER BY bbs_reg_time DESC LIMIt $page_num,$page_size");
+$result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bbs_last_time,bbs_last_ip FROM bbs_users ORDER BY bbs_reg_time DESC LIMIt $page_num,$page_size");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,12 +63,13 @@ $result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bb
                         <thead>
                             <tr>
                                 <th width="5%">ID</th>
-                                <th width="20%">会员名</th>
+                                <th width="10%">会员名</th>
                                 <th width="20%">邮件</th>
-                                <th width="10%">注册时间</th>
+                                <th width="15%">注册时间</th>
                                 <th width="10%">激活状态</th>
                                 <th width="15%">最后登录时间</th>
-                                <th width="20%">操作</th>
+                                <th width="10%">登录IP</th>
+                                <th width="15%">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,6 +82,7 @@ $result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bb
                                     
                                     $html['reg_time'] = $rows['bbs_reg_time'];
                                     $html['last_time'] = $rows['bbs_last_time'];
+                                    $html['last_ip'] = $rows['bbs_last_ip'];
                                     $html = html($html);
                                     if (empty($rows['bbs_active'])) {
                                         $html['active'] = '<span style="color:blue;">激活</span>';
@@ -95,11 +97,11 @@ $result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bb
                                 <td><?php echo $html['reg_time']; ?></td>
                                 <td><?php echo $html['active']; ?></td>
                                 <td><?php echo $html['last_time']; ?></td>
-                                <td><a class="delete" href="javascript:;" data-id="<?php echo $html['id']; ?>" title="">删除</a><a class="modify"  href="javascript:;" title="<?php echo $html['id']; ?>">修改</a></td>
+                                <td><?php echo $html['last_ip']; ?></td>
+                                <td><a class="delete" href="user_list.php?action=delete&id=<?php echo $html['id']; ?>"  title="">删除</a><a class="modify"  href="admin_modify.php?id=<?php echo $html['id']; ?>" >修改</a></td>
                             </tr>
                         </tbody>
                         <?php } ?>
-                        
                     </table>
                 </form>
                 <?php free_result($result);
@@ -108,24 +110,6 @@ $result = query("SELECT bbs_id,bbs_username,bbs_reg_time,bbs_email,bbs_active,bb
                 ?>
         </div>
     </div>
-    <script>
-        window.onload=function(){
-            var aDelete = document.querySelectorAll('.delete'),
-                aModify = document.querySelectorAll('.modify'),
-                oForm = document.getElementsByTagName('form')[0],
-                aLen = aDelete.length;
-                for (var i = 0; i < aLen; i++) {
-                    aDelete[i].onclick = function(){
-                        oForm.action +='delete&id='+this.dataset.id;
-                        oForm.submit();
-                    }
-                    aModify[i].onclick = function(){
-                        oForm.action +='modify&'+this.title;
-                        oForm.submit();
-                    }
-                };
-        }
-    </script>
     <?php 
         require ROOT_PATH.'includes/footer.inc.php'; 
     ?>

@@ -2,14 +2,14 @@
 * @Author: gaohuabin
 * @Date:   2015-12-06 15:23:54
 * @Last Modified by:   gaohuabin
-* @Last Modified time: 2015-12-18 00:02:42
+* @Last Modified time: 2015-12-21 22:00:41
 */
 window.onload = function(){
     var oForm = document.getElementsByName('login')[0],
     oRefreshCode = document.getElementById('refreshCode'),
     oCode = document.getElementById('code'),
-        aCodeGroups = document.querySelectorAll(".code-groups"),
-        bCode=true;
+    aCodeGroups = document.querySelectorAll(".code-groups"),
+    bCode=true;
     oForm.username.focus();
     for (var i = 0; i < aCodeGroups.length; i++) {
         if (aCodeGroups[i].dataset.code == 0) {

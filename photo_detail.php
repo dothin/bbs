@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-19 16:29:50
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:26:19
+ * @Last Modified time: 2015-12-22 13:32:28
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -23,20 +23,20 @@ if (@$_GET['action'] == 'rephoto') {
         $clean = array();
         //可以通过唯一标识符来防止恶意注册，伪装表单跨站攻击等。
         //唯一标识符第二个作用，登录cookie验证
-        $clean['sid'] =mysql_real_escape_string($_POST['sid']);
+        $clean['fid'] =mysql_real_escape_string($_POST['fid']);
         $clean['username'] =mysql_real_escape_string($_COOKIE['username']);
         $clean['title'] =mysql_real_escape_string($_POST['title']);
         $clean['content'] =mysql_real_escape_string($_POST['content']);
         //写入数据库
         query("INSERT INTO bbs_photo_comment (
-                                        bbs_sid,
+                                        bbs_fid,
                                         bbs_username,
                                         bbs_title,
                                         bbs_content,
                                         bbs_date
                                         )
                                 VALUES(
-                                        '{$clean['sid']}',
+                                        '{$clean['fid']}',
                                         '{$clean['username']}',
                                         '{$clean['title']}',
                                         '{$clean['content']}',
@@ -46,13 +46,13 @@ if (@$_GET['action'] == 'rephoto') {
 
         if (affected_rows() ==1) {
             //累积评论
-            query("UPDATE bbs_photo SET bbs_commentcount=bbs_commentcount+1 WHERE  bbs_id='{$clean['sid']}'");
+            query("UPDATE bbs_photo SET bbs_commentcount=bbs_commentcount+1 WHERE  bbs_id='{$clean['fid']}'");
             //关闭数据库
             close();
             //清除session
             //session_destroy();
             //跳转到首页
-            location('恭喜您评论成功！','photo_detail.php?id='.$clean['sid']);
+            location('恭喜您评论成功！','photo_detail.php?id='.$clean['fid']);
         }else{
             //关闭数据库
             close();
@@ -66,14 +66,14 @@ if (@$_GET['action'] == 'rephoto') {
 }
 //判断id是否存在，取值
 if (isset($_GET['id'])) {
-    if (!!$rows=fetch_array("SELECT bbs_id,bbs_name,bbs_url,bbs_username,bbs_sid,bbs_content,bbs_readcount,bbs_commentcount,bbs_date FROM bbs_photo WHERE bbs_id='{$_GET['id']}' LIMIt 1")) {
+    if (!!$rows=fetch_array("SELECT bbs_id,bbs_name,bbs_url,bbs_username,bbs_fid,bbs_content,bbs_readcount,bbs_commentcount,bbs_date FROM bbs_photo WHERE bbs_id='{$_GET['id']}' LIMIt 1")) {
         //防止加密相册图片穿插访问
         //先去的目录
         //再判断这个目录是否是加密的
         //如果是加密的，再判断是否有对应的cookie存在，并且对相应的值
         //管理员不受这个限值
         if (!isset($_SESSION['admin'])) {
-            if (!!$dirs=fetch_array("SELECT bbs_type,bbs_id,bbs_name FROM bbs_photo_dir WHERE bbs_id='{$rows['bbs_sid']}'")) {
+            if (!!$dirs=fetch_array("SELECT bbs_type,bbs_id,bbs_name FROM bbs_photo_dir WHERE bbs_id='{$rows['bbs_fid']}'")) {
                 if (!empty($dirs['bbs_type']) && @$_COOKIE['photo'.$dirs['bbs_id']] !=$dirs['bbs_name']) {
                     alert('非法操作');
                 }
@@ -85,7 +85,7 @@ if (isset($_GET['id'])) {
         query("UPDATE bbs_photo SET bbs_readcount=bbs_readcount+1 WHERE bbs_id='{$_GET['id']}'");
         $html = array();
         $html['id']=$rows['bbs_id'];
-        $html['sid']=$rows['bbs_sid'];
+        $html['fid']=$rows['bbs_fid'];
         $html['name']=$rows['bbs_name'];
         $html['username']=$rows['bbs_username'];
         $html['url']=$rows['bbs_url'];
@@ -100,19 +100,19 @@ if (isset($_GET['id'])) {
         global $page_size,$page_num,$page,$id;
         $id='id='.$html['id'].'&';
         //第一个参数：根据什么字段查询数据，第二个参数：设置每页显示多少条数据
-        pager_param("SELECT bbs_id FROM bbs_photo_comment WHERE bbs_sid='{$html['id']}'",8);
+        pager_param("SELECT bbs_id FROM bbs_photo_comment WHERE bbs_fid='{$html['id']}'",8);
         //从数据库提取数据
         //每次while循环的数据是读取的结果集，并不是去重新查询数据库
-        $result = query("SELECT bbs_username,bbs_title,bbs_content,bbs_date FROM bbs_photo_comment WHERE bbs_sid='{$html['id']}' ORDER BY bbs_date ASC LIMIt $page_num,$page_size");
+        $result = query("SELECT bbs_username,bbs_title,bbs_content,bbs_date FROM bbs_photo_comment WHERE bbs_fid='{$html['id']}' ORDER BY bbs_date ASC LIMIt $page_num,$page_size");
         //上一页，取得比自己大的ID中最小的那个
-        $html['preid']=fetch_array("SELECT min(bbs_id) AS id FROM bbs_photo WHERE bbs_sid='{$html['sid']}' AND bbs_id>'{$html['id']}' LIMIt 1");
+        $html['preid']=fetch_array("SELECT min(bbs_id) AS id FROM bbs_photo WHERE bbs_fid='{$html['fid']}' AND bbs_id>'{$html['id']}' LIMIt 1");
         if (!empty($html['preid']['id'])) {
             $html['preid_html']='<a href="photo_detail.php?id='.$html['preid']['id'].'" title="">上一页</a>';
         }else{
             $html['preid_html']='<span>上一页</span>';
         }
         //下一页，取得比自己小的ID中最大的那个
-        $html['nextid']=fetch_array("SELECT max(bbs_id) AS id FROM bbs_photo WHERE bbs_sid='{$html['sid']}' AND bbs_id<'{$html['id']}' LIMIt 1");
+        $html['nextid']=fetch_array("SELECT max(bbs_id) AS id FROM bbs_photo WHERE bbs_fid='{$html['fid']}' AND bbs_id<'{$html['id']}' LIMIt 1");
         if (!empty($html['nextid']['id'])) {
             $html['nextid_html']='<a href="photo_detail.php?id='.$html['nextid']['id'].'" title="">下一页</a>';
         }else{
@@ -150,7 +150,7 @@ if (isset($_GET['id'])) {
                 <p>图片简介：<?php echo $html['content']; ?></p>
             </figcaption>
         </figure>
-       <a href="show_photo.php?id=<?php echo $html['sid']; ?>" title="">返回</a>
+       <a href="show_photo.php?id=<?php echo $html['fid']; ?>" title="">返回</a>
        <?php echo $html['preid_html']; ?>
         <?php echo $html['nextid_html']; ?>
     </div>
@@ -241,7 +241,7 @@ if (isset($_GET['id'])) {
     <?php if (isset($_COOKIE['username'])) {?>
     <section id="re">
         <form class="form-horizontal" method="post" name="post" action="?action=rephoto">
-            <input type="hidden" name="sid" value="<?php echo $html['id']; ?>">
+            <input type="hidden" name="fid" value="<?php echo $html['id']; ?>">
             <div class="form-groups">
                 <label class="form-labels" for="type1" >标题：</label>
                 <div class="controls">
@@ -270,7 +270,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="form-groups">
-                <input type="submit" class="btn-blue" value="发表帖子" >
+                <input type="submit" class="btn-primary" value="发表帖子" >
             </div>
             
         </form>

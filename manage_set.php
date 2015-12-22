@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-15 23:56:00
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:23:53
+ * @Last Modified time: 2015-12-22 13:32:06
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -235,7 +235,7 @@ if (!!$rows = fetch_array("SELECT bbs_webname,bbs_article_num,bbs_blog_num,bbs_p
                         </div>
                     </div>
                     
-                    <div class="form-groups"><input type="submit" class="btn-blue" value="修改设置" ></div>
+                    <div class="form-groups"><input type="submit" class="btn-primary" value="修改设置" ></div>
                 </form>
         </div>
     </div>

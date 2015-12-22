@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-19 12:51:29
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:27:10
+ * @Last Modified time: 2015-12-22 13:32:54
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -17,12 +17,12 @@ if (@$_GET['action'] =='delete' && isset($_GET['id'])) {
         //为了防止cookie伪造，要比对一下唯一标识符uniqid
         uniqid_check($rows['bbs_uniqid'],$_COOKIE['uniqid']);
         //取得这张图片的发布者
-        if (!!$rows=fetch_array("SELECT bbs_username,bbs_url,bbs_id,bbs_sid FROM bbs_photo WHERE bbs_id='{$_GET['id']}' LIMIt 1")) {
+        if (!!$rows=fetch_array("SELECT bbs_username,bbs_url,bbs_id,bbs_fid FROM bbs_photo WHERE bbs_id='{$_GET['id']}' LIMIt 1")) {
             //判断删除图片的身份时候合法
             if ($rows['bbs_username']==@$_COOKIE['username'] ||isset($_SESSION['admin'])){
                 $html=array();
                 $html['id'] = $rows['bbs_id'];
-                $html['sid'] = $rows['bbs_sid'];
+                $html['sid'] = $rows['bbs_fid'];
                 $html['username'] = $rows['bbs_username'];
                 $html['url'] = $rows['bbs_url'];;
                 $html = html($html);
@@ -82,10 +82,10 @@ $percent=0.3;
 global $page_size,$page_num,$system,$id;
 $id='id='.$dirhtml['id'].'&';
 //第一个参数：根据什么字段查询数据，第二个参数：设置每页显示多少条数据
-pager_param("SELECT bbs_id FROM bbs_photo WHERE bbs_sid='{$dirhtml['id']}'",$system['photo_num']);
+pager_param("SELECT bbs_id FROM bbs_photo WHERE bbs_fid='{$dirhtml['id']}'",$system['photo_num']);
 //从数据库提取数据
 //每次while循环的数据是读取的结果集，并不是去重新查询数据库
-$result = query("SELECT bbs_id,bbs_username,bbs_name,bbs_url,bbs_readcount,bbs_commentcount FROM bbs_photo WHERE bbs_sid='{$dirhtml['id']}' ORDER BY bbs_date DESC LIMIt $page_num,$page_size");
+$result = query("SELECT bbs_id,bbs_username,bbs_name,bbs_url,bbs_readcount,bbs_commentcount FROM bbs_photo WHERE bbs_fid='{$dirhtml['id']}' ORDER BY bbs_date DESC LIMIt $page_num,$page_size");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,7 +132,7 @@ $result = query("SELECT bbs_id,bbs_username,bbs_name,bbs_url,bbs_readcount,bbs_c
         }else{
             echo '<form action="show_photo.php?id='.$dirhtml['id'].'" method="post" >';
             echo '<input type="password" name="password" value="" placeholder="输入密码">';
-            echo '<input type="submit" name="" class="btn-blue" value="确认">';
+            echo '<input type="submit" name="" class="btn-primary" value="确认">';
             echo '</form>';
         }
         ?>

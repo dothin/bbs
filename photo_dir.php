@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-18 22:57:52
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:26:29
+ * @Last Modified time: 2015-12-22 00:12:41
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -27,7 +27,7 @@ if (@$_GET['action']=='delete'&&isset($_GET['id'])) {
             if (file_exists($html['url'])) {
                if (remove_Dir($html['url'])) {
                     //1,删除目录里的数据库图片
-                    query("DELETE FROM bbs_photo WHERE bbs_sid='{$_GET['id']}'");
+                    query("DELETE FROM bbs_photo WHERE bbs_fid='{$_GET['id']}'");
                     //2,删除这个目录的数据库
                     query("DELETE FROM bbs_photo_dir WHERE bbs_id='{$_GET['id']}'");
                     close();
@@ -83,7 +83,7 @@ $result = query("SELECT bbs_id,bbs_name,bbs_type,bbs_cover FROM bbs_photo_dir OR
                         $html['cover'] = $rows['bbs_cover'];
                     }
                     //统计相册中的照片数量
-                    $html['photo']=fetch_array("SELECT COUNT(*) AS count FROM bbs_photo WHERE bbs_sid='{$html['id']}'");
+                    $html['photo']=fetch_array("SELECT COUNT(*) AS count FROM bbs_photo WHERE bbs_fid='{$html['id']}'");
             ?>
             <figure>
                 <img src="<?php echo $html['cover'] ?>" alt="">

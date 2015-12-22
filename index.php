@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-03 12:46:14
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-21 14:02:01
+ * @Last Modified time: 2015-12-22 13:31:52
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -31,7 +31,7 @@ $user_num=fetch_array("SELECT COUNT(*) AS count FROM bbs_users ");
 $result_hot = query("SELECT bbs_id,bbs_title,bbs_type,bbs_readcount,bbs_commentcount FROM bbs_article WHERE bbs_reid=0 ORDER BY bbs_commentcount DESC LIMIt 0,{$system['hot_num']}");
 $result_newuser = query("SELECT bbs_id,bbs_username,bbs_sex,bbs_photo,bbs_email,bbs_url FROM bbs_users ORDER BY bbs_reg_time DESC LIMIt $page_num,{$system['newuser_num']}");
 //最新图片，找到时间点最后上传的图片，并且是非公开的
-$photo=fetch_array("SELECT bbs_id AS id,bbs_name AS name,bbs_url AS url,bbs_username AS username,bbs_date AS date,bbs_content AS content FROM bbs_photo WHERE bbs_sid in (SELECT bbs_id FROM bbs_photo_dir WHERE bbs_type=0) ORDER BY bbs_date DESC LIMIt 1");
+$photo=fetch_array("SELECT bbs_id AS id,bbs_name AS name,bbs_url AS url,bbs_username AS username,bbs_date AS date,bbs_content AS content FROM bbs_photo WHERE bbs_fid in (SELECT bbs_id FROM bbs_photo_dir WHERE bbs_type=0) ORDER BY bbs_date DESC LIMIt 1");
 //读出热搜词
 $result_hot_keys = query("SELECT bbs_keys FROM bbs_hot_keys WHERE bbs_count>2 ORDER BY bbs_count DESC LIMIt 0,5");
 //搜索
@@ -193,26 +193,26 @@ if (@$_GET['action'] == 'search'&&isset($_POST['text'])||@$_GET['action'] == 'se
         </aside>
     </div>
     <div id="message" class="hide">
-            <h2 class="ddd"><span id="tips">发送消息给：</span><span id="friend"></span></h2>
-            <form class="form-horizontal" method="post" name="message" id="mform" action="blog.php?action=message">
-                <div class="form-groups">
-                    <label class="form-labels" for="" >私信内容：</label>
-                    <div class="controls">
-                        <input type="hidden" name="touser">
-                        <textarea name="content" id="" cols="30" rows="10" maxlength="200"></textarea>
-                    </div>
+        <h2 class="ddd"><span id="tips">发送消息给：</span><span id="friend"></span></h2>
+        <form class="form-horizontal" method="post" name="message" id="mform" action="blog.php?action=message">
+            <div class="form-groups">
+                <label class="form-labels" for="" >私信内容：</label>
+                <div class="controls">
+                    <input type="hidden" name="touser">
+                    <textarea name="content" id="" cols="30" rows="10" maxlength="200"></textarea>
                 </div>
-                <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
-                    <label class="form-labels" for="" >验证码：</label>
-                    <div class="controls">
-                        <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
-                    </div>
+            </div>
+            <div class="form-groups code-groups" data-code="<?php echo $system['code']?>">
+                <label class="form-labels" for="" >验证码：</label>
+                <div class="controls">
+                    <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                 </div>
-                <div class="form-groups">
-                    <input type="submit" class="btn-blue" value="发送" >
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="form-groups">
+                <input type="submit" class="btn-primary" value="发送" >
+            </div>
+        </form>
+    </div>
     <script src="js/blog.js"></script>
     <script src="js/index.js"></script>
 

@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-04 15:50:16
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-18 19:34:52
+ * @Last Modified time: 2015-12-22 13:32:48
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -207,7 +207,7 @@ $_SESSION['uniqid'] = $uniqid = sha1_uniqid();
                     <input type="text" name="code" class="code"  > <img src="code.php" id="code"><a id="refreshCode" href="javascript:;" title="看不清">看不清？</a>
                 </div>
             </div>
-            <div class="form-groups"><input type="submit" class="btn-blue" value="注册" ></div>
+            <div class="form-groups"><input type="submit" class="btn-primary" value="注册" ></div>
         </form>
     </div>
     <script src="js/register.js"></script>

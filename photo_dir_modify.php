@@ -3,7 +3,7 @@
  * @Author: gaohuabin
  * @Date:   2015-12-19 00:53:18
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-20 21:26:41
+ * @Last Modified time: 2015-12-22 13:32:40
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -132,7 +132,7 @@ if (isset($_GET['id'])) {
                     <textarea name="content" cols="46" rows="10"><?php echo $html['content'];?></textarea>
                 </div>
             </div>
-            <div class="form-groups"><input type="submit" class="btn-blue" value="添加目录" ></div>
+            <div class="form-groups"><input type="submit" class="btn-primary" value="添加目录" ></div>
         </form>
     </div>
     <script>

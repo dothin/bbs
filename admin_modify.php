@@ -1,9 +1,9 @@
 <?php
 /**
  * @Author: gaohuabin
- * @Date:   2015-12-07 14:43:31
+ * @Date:   2015-12-21 22:22:12
  * @Last Modified by:   gaohuabin
- * @Last Modified time: 2015-12-21 22:00:08
+ * @Last Modified time: 2015-12-21 22:50:41
  */
 //定义一个常量，用来授权调用includes里面的文件
 define('IN_TG', true);
@@ -11,7 +11,7 @@ session_start();
 //引入公共文件,转换成硬路径，速度更快
 require dirname(__FILE__).'/includes/common.inc.php';
 //修改资料
-if (@$_GET['action'] == 'modify') {
+if (@$_GET['action'] == 'modify'&&isset($_GET['id'])) {
     //为防止恶意注册，跨站攻击
     if ($system['code']==1) {
         check_code($_POST['code'],$_SESSION['code']);
@@ -23,6 +23,7 @@ if (@$_GET['action'] == 'modify') {
         include ROOT_PATH.'includes/check.func.php';
         //创建空数组，用来存放提交的合法数据
         $clean = array();
+        $clean['active'] = $_POST['active'];
         $clean['password'] = check_modify_password($_POST['password'],6);
         $clean['sex'] = check_sex($_POST['sex']);
         $clean['photo'] = check_photo($_POST['photo']);
@@ -33,8 +34,11 @@ if (@$_GET['action'] == 'modify') {
         $clean['signature'] = check_signature($_POST['signature'],200);
         //修改资料
         if (empty($clean['password'])) {
-           query("UPDATE bbs_users SET 
+            if (empty($clean['active'])) {
+                $clean['active'] = sha1_uniqid();
+                query("UPDATE bbs_users SET 
                         bbs_sex='{$clean['sex']}',
+                        bbs_active='{$clean['active']}',
                         bbs_photo='{$clean['photo']}',
                         bbs_email='{$clean['email']}',
                         bbs_qq='{$clean['qq']}',
@@ -42,12 +46,30 @@ if (@$_GET['action'] == 'modify') {
                         bbs_switch='{$clean['switch']}',
                         bbs_signature='{$clean['signature']}'
                     WHERE
-                        bbs_username='{$_COOKIE['username']}'
+                        bbs_id='{$_GET['id']}'
                 ");
+            }else{
+                
+                query("UPDATE bbs_users SET 
+                            bbs_sex='{$clean['sex']}',
+                            bbs_active=NULL,
+                            bbs_photo='{$clean['photo']}',
+                            bbs_email='{$clean['email']}',
+                            bbs_qq='{$clean['qq']}',
+                            bbs_url='{$clean['url']}',
+                            bbs_switch='{$clean['switch']}',
+                            bbs_signature='{$clean['signature']}'
+                        WHERE
+                            bbs_id='{$_GET['id']}'
+                    ");
+           }
         }else{
-            query("UPDATE bbs_users SET 
+            if (empty($clean['active'])) {
+                $clean['active'] = sha1_uniqid();
+                query("UPDATE bbs_users SET 
                         bbs_password='{$clean['password']}',
                         bbs_sex='{$clean['sex']}',
+                        bbs_active='{$clean['active']}',
                         bbs_photo='{$clean['photo']}',
                         bbs_email='{$clean['email']}',
                         bbs_qq='{$clean['qq']}',
@@ -55,8 +77,23 @@ if (@$_GET['action'] == 'modify') {
                         bbs_switch='{$clean['switch']}',
                         bbs_signature='{$clean['signature']}'
                     WHERE
-                        bbs_username='{$_COOKIE['username']}'
+                        bbs_id='{$_GET['id']}'
                 ");
+            }else{
+                query("UPDATE bbs_users SET 
+                            bbs_password='{$clean['password']}',
+                            bbs_sex='{$clean['sex']}',
+                            bbs_active=NULL,
+                            bbs_photo='{$clean['photo']}',
+                            bbs_email='{$clean['email']}',
+                            bbs_qq='{$clean['qq']}',
+                            bbs_url='{$clean['url']}',
+                            bbs_switch='{$clean['switch']}',
+                            bbs_signature='{$clean['signature']}'
+                        WHERE
+                            bbs_id='{$_GET['id']}'
+                    ");
+           }
         }
         //可以生成新的唯一标识符，这样更安全
     }
@@ -79,12 +116,13 @@ if (@$_GET['action'] == 'modify') {
     }
 }
 //是否登录状态
-if (isset($_COOKIE['username'])) {
+if (isset($_SESSION['admin'])&&isset($_GET['id'])) {
     //获取数据
-    $rows = fetch_array("SELECT bbs_username,bbs_sex,bbs_photo,bbs_email,bbs_url,bbs_qq,bbs_switch,bbs_signature FROM bbs_users WHERE bbs_username='{$_COOKIE['username']}'");
+    $rows = fetch_array("SELECT bbs_username,bbs_active,bbs_sex,bbs_photo,bbs_email,bbs_url,bbs_qq,bbs_switch,bbs_signature FROM bbs_users WHERE bbs_id='{$_GET['id']}'");
     //判断用户是否存在
     if ($rows) {
         $html = array();
+        $html['active'] = $rows['bbs_active'];
         $html['username'] = $rows['bbs_username'];
         $html['sex'] = $rows['bbs_sex'];
         $html['photo'] = $rows['bbs_photo'];
@@ -94,6 +132,13 @@ if (isset($_COOKIE['username'])) {
         $html['switch'] = $rows['bbs_switch'];
         $html['signature'] = $rows['bbs_signature'];
         $html = html($html);
+        if (empty($rows['bbs_active'])) {
+            $html['active'] = '<label for="on" class="radio"><input type="radio" id="on" name="active" value="1" checked >激活</label>
+                            <label for="off" class="radio"><input type="radio" id="off" name="active" value="0" >禁用</label>(禁用后该用户将不能登录)';
+        }else{
+            $html['active'] = '<label for="on" class="radio"><input type="radio" id="on" name="active" value="1"  >激活</label>
+                            <label for="off" class="radio"><input type="radio" id="off" name="active" value="0" checked>禁用</label>(禁用后该用户将不能登录)';
+        }
         //性别
         if ($html['sex'] == '男') {
             $html['sex_html'] = '<label for="man" class="radio"><input type="radio" id="man" name="sex" value="男" checked >男 </label>
@@ -122,10 +167,10 @@ if (isset($_COOKIE['username'])) {
         require ROOT_PATH.'includes/header.inc.php';
     ?>
     <div class="container oh uz">
-        <?php require ROOT_PATH.'includes/userzone.inc.php'; ?>
+        <?php require ROOT_PATH.'includes/manage.inc.php'; ?>
         <div class="main fr">
                 <h2>会员管理中心</h2>
-                <form class="form-horizontal"  method="post" name="modify" action="?action=modify">
+                <form class="form-horizontal"  method="post" name="modify" action="?action=modify&id=<?php echo $_GET['id']; ?>">
                     <div class="form-groups">
                         <label class="form-labels" for="" >用户名：</label>
                         <div class="controls">
@@ -136,6 +181,12 @@ if (isset($_COOKIE['username'])) {
                         <label class="form-labels" for="" >密码：</label>
                         <div class="controls">
                             <input type="password" name="password"> (留空格不修改)
+                        </div>
+                    </div>
+                    <div class="form-groups">
+                        <label class="form-labels" for="" >状态：</label>
+                        <div class="controls">
+                            <?php echo $html['active'];?>
                         </div>
                     </div>
                     <div class="form-groups">

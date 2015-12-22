@@ -2,7 +2,7 @@
 * @Author: gaohuabin
 * @Date:   2015-12-07 15:00:18
 * @Last Modified by:   gaohuabin
-* @Last Modified time: 2015-12-07 16:15:17
+* @Last Modified time: 2015-12-21 22:01:50
 */
 
 window.onload = function(){
@@ -14,7 +14,9 @@ window.onload = function(){
         oForm = document.getElementsByName('modify')[0],
         oRefreshCode = document.getElementById('refreshCode'),
         oCode = document.getElementById('code'),
-        len = aImg.length;
+        len = aImg.length,
+        aCodeGroups = document.querySelectorAll(".code-groups"),
+        bCode=true;
     //头像
     for (var i = 0; i < len; i++) {
         aImg[i].src = aImg[i].alt = 'images/photo/photo (' + (i + 1) + ').jpg';
@@ -30,6 +32,12 @@ window.onload = function(){
     oClose.onclick = function() {
         oPhotos.style.display = 'none';
     }
+    for (var i = 0; i < aCodeGroups.length; i++) {
+        if (aCodeGroups[i].dataset.code == 0) {
+            aCodeGroups[i].style.display = 'none';
+            bCode=false;
+        };
+    };
     //刷新验证码
     oRefreshCode.onclick = oCode.onclick = function() {
         oCode.src = 'code.php?t=' + Math.random();
@@ -67,7 +75,7 @@ window.onload = function(){
                 return false;
             };
         };
-        if (oForm.code.value.length != 4) {
+        if (bCode&&oForm.code.value.length != 4) {
             alert('验证码必须4位');
             oForm.code.value = '';
             oForm.code.focus();
